@@ -3,7 +3,9 @@ import axios from "axios";
 const BASE_URL =
   process.env.REACT_APP_ENV === "production"
     ? process.env.REACT_APP_BACKEND_URL
-    : `http://localhost:process.env.${process.env.REACT_APP_BACKEND_PORT}`;
+    : `http://localhost:${process.env.REACT_APP_BACKEND_PORT}`;
+
+console.log("🚀 ~ file: Api.js:4 ~ BASE_URL:", BASE_URL);
 
 /** API Class.
  *
@@ -18,7 +20,7 @@ class TaxRiseAPI {
   static token;
 
   static async request(endpoint, data = {}, method = "get") {
-    console.debug("API Call:", endpoint, data, method);
+    console.log("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${TaxRiseAPI.token}` };
@@ -27,44 +29,50 @@ class TaxRiseAPI {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
-      console.log("🚀 ~ file: Api.js:26 ~ TaxRiseAPI ~ request ~ err", err);
-      throw err;
+      console.log("🚀 ~ file: Api.js:32 ~ TaxRiseAPI ~ request ~ err:", err);
+      const errorData = err.response.data;
+      return errorData;
     }
   }
 
   // Individual API routes
   static async getTasks(id) {
-    const queryString = Object.keys(searchObject)
-      .map((key) => key + "=" + searchObject[key])
-      .join("&");
-    let url = `tasks/?` + queryString;
-    let res = await this.request(url);
+    const url = `tasks`;
+    const res = await this.request(url);
     return res.productResult;
   }
 
   static async getTaskDetails(taskId) {
-    const queryString = Object.keys(searchObject)
-      .map((key) => key + "=" + searchObject[key])
-      .join("&");
-
-    let url = `tasks/?` + queryString;
-    let res = await this.request(url);
+    const url = `tasks/${taskId}`;
+    const res = await this.request(url);
 
     return res;
   }
 
   static async login(data) {
-    let res = await this.request(`auth/token`, data, "post");
-    return res.token;
+    console.log("🚀 ~ file: Api.js:57 ~ TaxRiseAPI ~ login ~ data:", data);
+    const res = await this.request(`auth/token`, data, "post");
+    return res.response.data;
   }
 
   static async register(data) {
-    let res = await this.request(`auth/register`, data, "post");
+    const res = await this.request(`auth/register`, data, "post");
     return res.token;
   }
 
+  /** Get current user information. */
+
+  static async getLoggedInUser(username) {
+    console.log(
+      "🚀 ~ file: Api.js:64 ~ TaxRiseAPI ~ getUserInfo ~ username:",
+      username
+    );
+    const res = await this.request(`users/${username}`);
+    return res;
+  }
+
   static async createTask(data) {
-    let res = await this.request(`tasks`, data, "post");
+    const res = await this.request(`tasks`, data, "post");
     return res;
   }
 }
