@@ -1,9 +1,13 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Navbar from "react-bootstrap/Navbar";
+import UserContext from "../UserContext.js";
+import { useContext } from "react";
 
-function NavigationBar(loggedInUser) {
+function NavigationBar() {
+  const { logout, loggedInUser } = useContext(UserContext);
+
   console.log(
     "🚀 ~ file: NavigationBar.js:7 ~ NavigationBar ~ loggedInUser:",
     loggedInUser
@@ -26,8 +30,8 @@ function NavigationBar(loggedInUser) {
                   Something
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
+                <NavDropdown.Item onClick={logout} href="#action/3.4">
+                  logout
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>

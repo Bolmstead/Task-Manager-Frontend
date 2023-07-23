@@ -2,22 +2,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TaxRiseAPI from "./Api";
 import "./App.css";
 import Context from "./UserContext.js";
 import AlertMessage from "./components/AlertMessage";
 import NavigationBar from "./components/NavigationBar.js";
 import LoginPage from "./pages/LoginPage.js";
+import NotFoundPage from "./pages/NotFoundPage";
+import TasksPage from "./pages/TasksPage";
+
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [alert, setAlert] = useState(null);
-  console.log("🚀 ~ file: App.js:17 ~ App ~ alert:", !!alert);
   const [infoLoaded, setInfoLoaded] = useState(null);
-
-  console.log("🚀 ~ file: App.js:13 ~ App ~ token:", token);
 
   useEffect(
     function loadUserInfo() {
@@ -27,9 +28,22 @@ function App() {
         if (token) {
           try {
             let { username } = jwt_decode(token);
+            console.log(
+              "🚀 ~ file: App.js:29 ~ getLoggedInUser ~ username:",
+              username
+            );
             // put the token on the Api class so it can use it to call the API.
             TaxRiseAPI.token = token;
+            console.log(
+              "🚀 ~ file: App.js:32 ~ getLoggedInUser ~ TaxRiseAPI.token:",
+              TaxRiseAPI.token
+            );
             let currentUser = await TaxRiseAPI.getLoggedInUser(username);
+            console.log(
+              "🚀 ~ file: App.js:34 ~ getLoggedInUser ~ currentUser:",
+              currentUser
+            );
+
             setLoggedInUser(currentUser);
           } catch (err) {
             console.error("App loadUserInfo: problem loading", err);
@@ -50,38 +64,29 @@ function App() {
   // Handles site-wide login
   async function login(enteredUsername, enteredPassword) {
     try {
-      console.log("login ");
-      console.log("🚀 ~ file: App.js:55 ~ login ~ enteredUsername, enteredPassword:", enteredUsername, enteredPassword)
+      setAlert(null);
+
       let loginToken = await TaxRiseAPI.login({
         username: enteredUsername,
         password: enteredPassword,
       });
-      console.log("🚀 ~ file: App.js:59 ~ login ~ loginToken:", loginToken)
       setToken(loginToken);
 
       localStorage.setItem("token", JSON.stringify(loginToken));
-      return { success: true };
-    } catch (errors) {
-      return { errors };
+    } catch (error) {
+      setAlert({ alertType: "danger", message: error.message });
     }
   }
 
   // Handles site-wide logout
   function logout() {
-    console.log("logout executed");
-
     setLoggedInUser(null);
     setToken(null);
   }
-  if (!infoLoaded)
-    return (
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
-    );
 
   async function signup(signupData) {
     try {
+      setAlert(null);
       let token = await TaxRiseAPI.signup(signupData);
       setToken(token);
       return { success: true };
@@ -91,53 +96,37 @@ function App() {
     }
   }
 
-  if (token && loggedInUser) {
-    <div className="App">
-      <Context.Provider
-        value={{
-          loggedInUser,
-          login,
-          logout,
-          token,
-          setAlert,
-        }}
-      >
-        <NavigationBar />
-        <header className="App-header">
-          <AlertMessage alert={alert} />
-          <Routes>
-            {/* <Route exact path="/tasks">
-              <TasksPage />
-            </Route> */}
-            {/* <Route exact path="/task/:task_id">
-              <TaskDetailsPage />
-            </Route> */}
-            <Route render={() => <Navigate to="/tasks" />} />
-          </Routes>
-        </header>
-      </Context.Provider>
-    </div>;
-  }
   return (
     <BrowserRouter>
       <div className="App">
         <Context.Provider
           value={{
+            loggedInUser,
             login,
+            logout,
+            token,
             setAlert,
-            signup,
           }}
         >
           <NavigationBar />
           <header className="App-header">
             {alert ? <AlertMessage alert={alert} /> : null}
-            <Routes>
-              <Route exact path="/login" element={<LoginPage />}></Route>
-              {/* <Route exact path="/signup">
-                <SignupPage />
-              </Route> */}
-              <Route render={() => <Navigate to="/login" />} />
-            </Routes>
+            {!infoLoaded ? (
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            ) : (
+              <Routes>
+                <Route exact path="/login" element={<LoginPage />}></Route>
+                {/* <Route exact path="/signup" element={<SignupPage />}></Route> */}
+
+                <Route element={<PrivateRoutes />}>
+                  {/* <Route element={<TaskDetailsPage />}></Route> */}
+                  <Route path="/tasks" element={<TasksPage />}></Route>
+                </Route>
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            )}
           </header>
         </Context.Provider>
       </div>
