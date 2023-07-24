@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import UserContext from "../UserContext.js";
 
 function LoginPage() {
@@ -38,7 +38,7 @@ function LoginPage() {
           Login
         </Button>
         <div>
-          Don't have an account? <a href="/signup">Signup here</a>
+          Don't have an account? <Link to="/signup">Signup here</Link>
         </div>
       </Form.Group>
     </Form>

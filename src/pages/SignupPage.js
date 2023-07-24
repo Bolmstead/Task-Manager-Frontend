@@ -1,14 +1,20 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import UserContext from "../UserContext.js";
+import Select from 'react-select'
 
 function SignupPage() {
   const { signup, loggedInUser } = useContext(UserContext);
 
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
+  const [isClient, setIsClient] = useState(true);
+
+  useEffect(() => {
+    console.log(isClient);
+  }, [isClient]);
 
   if (loggedInUser) {
     return <Navigate to="/tasks" replace={true} />;
@@ -38,11 +44,13 @@ function SignupPage() {
           <option value={true}>Client</option>
           <option value={false}>Admin</option>
         </Form.Select>
-        <Button onClick={() => login(enteredUsername, enteredPassword)}>
+        <Button
+          onClick={() => signup(enteredUsername, enteredPassword, isClient)}
+        >
           Create!
         </Button>
         <div>
-          Already have an account? <a href="/login">Login here</a>
+          Already have an account? <Link to="/login">Login here</Link>
         </div>
       </Form.Group>
     </Form>

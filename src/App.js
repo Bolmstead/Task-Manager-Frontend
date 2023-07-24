@@ -11,6 +11,7 @@ import NavigationBar from "./components/NavigationBar.js";
 import CreateTaskPage from "./pages/CreateTaskPage";
 import LoginPage from "./pages/LoginPage.js";
 import NotFoundPage from "./pages/NotFoundPage";
+import SignupPage from "./pages/SignupPage.js";
 import TasksPage from "./pages/TasksPage";
 
 import PrivateRoutes from "./utils/PrivateRoutes";
@@ -65,7 +66,10 @@ function App() {
 
       localStorage.setItem("token", JSON.stringify(loginToken));
     } catch (error) {
-      setAlert({ alertType: "danger", message: error.message });
+      setAlert({
+        alertType: "danger",
+        message: error.message || "Error Logging in",
+      });
     }
   }
 
@@ -75,14 +79,24 @@ function App() {
     setToken(null);
   }
 
-  async function signup(signupData) {
+  async function signup(username, password, isClient, selectedClients) {
     try {
+      console.log(
+        "🚀 ~ file: App.js:80 ~ signup ~ username, password, isClient:",
+        username,
+        password,
+        isClient
+      );
+
       setAlert(null);
-      let token = await TaxRiseAPI.signup(signupData);
+      let token = await TaxRiseAPI.signup({ username, password, isClient });
+      console.log("🚀 ~ file: App.js:85 ~ signup ~ token:", token);
       setToken(token);
-      return { success: true };
-    } catch (errors) {
-      return { success: false, errors };
+    } catch (error) {
+      setAlert({
+        alertType: "danger",
+        message: error.message || "Error Signing up",
+      });
     }
   }
 
@@ -96,6 +110,7 @@ function App() {
             logout,
             token,
             setAlert,
+            signup,
           }}
         >
           <NavigationBar />
@@ -108,7 +123,7 @@ function App() {
             ) : (
               <Routes>
                 <Route exact path="/login" element={<LoginPage />}></Route>
-                {/* <Route exact path="/signup" element={<SignupPage />}></Route> */}
+                <Route exact path="/signup" element={<SignupPage />}></Route>
 
                 <Route element={<PrivateRoutes />}>
                   {/* <Route element={<TaskDetailsPage />}></Route> */}
