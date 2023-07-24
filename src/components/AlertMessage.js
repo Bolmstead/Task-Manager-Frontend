@@ -10,11 +10,7 @@ function AlertMessage({ alert }) {
   const { setAlert } = useContext(UserContext);
 
   const { alertType, message } = alert;
-  console.log(
-    "🚀 ~ file: AlertMessage.js:9 ~ AlertMessage ~ alertType, message:",
-    alertType,
-    message
-  );
+
   return (
     <Modal show={alert}>
       <Modal.Header closeButton onHide={() => setAlert(null)}>

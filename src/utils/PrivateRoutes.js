@@ -8,6 +8,7 @@ const PrivateRoutes = () => {
     "🚀 ~ file: PrivateRoutes.js:7 ~ PrivateRoutes ~ loggedInUser:",
     loggedInUser
   );
+
   return loggedInUser ? <Outlet /> : <Navigate to="/login" />;
 };
 

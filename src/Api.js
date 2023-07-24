@@ -5,8 +5,6 @@ const BASE_URL =
     ? process.env.REACT_APP_BACKEND_URL
     : `http://localhost:${process.env.REACT_APP_BACKEND_PORT}`;
 
-console.log("🚀 ~ file: Api.js:4 ~ BASE_URL:", BASE_URL);
-
 /** API Class.
  *
  * Static class tying together methods used to get/send to to the API. *
@@ -29,38 +27,18 @@ class TaxRiseAPI {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
-      console.log(
-        "🚀 ~ file: Api.js:32 ~ TaxRiseAPI ~ request ~ err.response:",
-        err.response
-      );
-
-      const errorData = err.response.data.error;
-      console.log(
-        "🚀 ~ file: Api.js:37 ~ TaxRiseAPI ~ request ~ errorData:",
-        errorData
-      );
-
-      throw errorData;
+      if (err.response) {
+        throw err.response.data.error;
+      } else {
+        throw { message: "Server Error" };
+      }
     }
   }
 
   // Individual API routes
-  static async getTasks(id) {
-    const url = `tasks`;
-    const res = await this.request(url);
-    return res.productResult;
-  }
-
-  static async getTaskDetails(taskId) {
-    const url = `tasks/${taskId}`;
-    const res = await this.request(url);
-
-    return res;
-  }
 
   static async login(data) {
     const res = await this.request(`auth/login`, data, "post");
-    console.log("🚀 ~ file: Api.js:56 ~ TaxRiseAPI ~ login ~ res:", res);
     return res.token;
   }
 
@@ -69,15 +47,28 @@ class TaxRiseAPI {
     return res.token;
   }
 
-  /** Get current user information. */
-
   static async getLoggedInUser(username) {
     const res = await this.request(`users/${username}`);
-    console.log(
-      "🚀 ~ file: Api.js:77 ~ TaxRiseAPI ~ getLoggedInUser ~ res:",
-      res
-    );
+    return res;
+  }
+  static async getAllTasks() {
+    const res = await this.request("tasks/all-tasks");
+    return res;
+  }
 
+  static async getAllClients() {
+    const res = await this.request(`users/all-clients`);
+    return res;
+  }
+
+  static async getClientsTasks(username) {
+    const res = await this.request(`tasks/all-clients-tasks/${username}`);
+    return res;
+  }
+
+  static async getTaskDetails(taskId) {
+    const url = `tasks/${taskId}`;
+    const res = await this.request(url);
     return res;
   }
 

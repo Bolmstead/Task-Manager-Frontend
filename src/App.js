@@ -8,6 +8,7 @@ import "./App.css";
 import Context from "./UserContext.js";
 import AlertMessage from "./components/AlertMessage";
 import NavigationBar from "./components/NavigationBar.js";
+import CreateTaskPage from "./pages/CreateTaskPage";
 import LoginPage from "./pages/LoginPage.js";
 import NotFoundPage from "./pages/NotFoundPage";
 import TasksPage from "./pages/TasksPage";
@@ -28,21 +29,11 @@ function App() {
         if (token) {
           try {
             let { username } = jwt_decode(token);
-            console.log(
-              "🚀 ~ file: App.js:29 ~ getLoggedInUser ~ username:",
-              username
-            );
+
             // put the token on the Api class so it can use it to call the API.
             TaxRiseAPI.token = token;
-            console.log(
-              "🚀 ~ file: App.js:32 ~ getLoggedInUser ~ TaxRiseAPI.token:",
-              TaxRiseAPI.token
-            );
+
             let currentUser = await TaxRiseAPI.getLoggedInUser(username);
-            console.log(
-              "🚀 ~ file: App.js:34 ~ getLoggedInUser ~ currentUser:",
-              currentUser
-            );
 
             setLoggedInUser(currentUser);
           } catch (err) {
@@ -91,7 +82,6 @@ function App() {
       setToken(token);
       return { success: true };
     } catch (errors) {
-      console.error("signup failed", errors);
       return { success: false, errors };
     }
   }
@@ -123,6 +113,10 @@ function App() {
                 <Route element={<PrivateRoutes />}>
                   {/* <Route element={<TaskDetailsPage />}></Route> */}
                   <Route path="/tasks" element={<TasksPage />}></Route>
+                  <Route
+                    path="/create-task"
+                    element={<CreateTaskPage />}
+                  ></Route>
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>

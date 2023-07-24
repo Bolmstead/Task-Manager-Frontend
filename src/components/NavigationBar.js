@@ -1,17 +1,13 @@
+import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Navbar from "react-bootstrap/Navbar";
 import UserContext from "../UserContext.js";
-import { useContext } from "react";
 
 function NavigationBar() {
   const { logout, loggedInUser } = useContext(UserContext);
 
-  console.log(
-    "🚀 ~ file: NavigationBar.js:7 ~ NavigationBar ~ loggedInUser:",
-    loggedInUser
-  );
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -30,9 +26,7 @@ function NavigationBar() {
                   Something
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={logout} href="#action/3.4">
-                  logout
-                </NavDropdown.Item>
+                <NavDropdown.Item onClick={logout}>logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           ) : (
