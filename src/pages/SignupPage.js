@@ -3,10 +3,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, Navigate } from "react-router-dom";
 import UserContext from "../UserContext.js";
-import Select from 'react-select'
 
 function SignupPage() {
-  const { signup, loggedInUser } = useContext(UserContext);
+  const { signup, loggedInUser, btnLoading } = useContext(UserContext);
 
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -44,13 +43,20 @@ function SignupPage() {
           <option value={true}>Client</option>
           <option value={false}>Admin</option>
         </Form.Select>
+
         <Button
-          onClick={() => signup(enteredUsername, enteredPassword, isClient)}
+          variant="primary"
+          disabled={btnLoading}
+          onClick={
+            !btnLoading
+              ? () => signup(enteredUsername, enteredPassword, isClient)
+              : null
+          }
         >
-          Create!
+          {btnLoading ? "Loading…" : "Signup"}
         </Button>
         <div>
-          Already have an account? <Link to="/login">Login here</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </div>
       </Form.Group>
     </Form>

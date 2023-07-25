@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Navbar from "react-bootstrap/Navbar";
 import UserContext from "../UserContext.js";
 
@@ -15,25 +14,19 @@ function NavigationBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           {loggedInUser ? (
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item onClick={logout}>logout</NavDropdown.Item>
-              </NavDropdown>
+              <Navbar.Brand>Hi, {loggedInUser.username}!</Navbar.Brand>
+              <Navbar.Text>
+                {loggedInUser.isClient
+                  ? "As a Client, you can view and address all of your assigned tasks."
+                  : "As an Admin, you can view all created and assigned tasks."}
+              </Navbar.Text>
+              <Nav.Link onClick={logout}>logout</Nav.Link>
             </Nav>
           ) : (
             <Nav className="me-auto">
-              <Nav.Link href="#home">
-                Sign in or Register to get started!
-              </Nav.Link>
+              <Navbar.Brand>Welcome!</Navbar.Brand>
+              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/signup">Signup</Nav.Link>
             </Nav>
           )}
         </Navbar.Collapse>

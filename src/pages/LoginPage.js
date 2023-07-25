@@ -5,7 +5,7 @@ import { Link, Navigate } from "react-router-dom";
 import UserContext from "../UserContext.js";
 
 function LoginPage() {
-  const { login, loggedInUser } = useContext(UserContext);
+  const { login, loggedInUser, btnLoading } = useContext(UserContext);
 
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -34,11 +34,18 @@ function LoginPage() {
           value={enteredPassword}
           onChange={(e) => setEnteredPassword(e.target.value)}
         />
-        <Button onClick={() => login(enteredUsername, enteredPassword)}>
-          Login
+
+        <Button
+          variant="primary"
+          disabled={btnLoading}
+          onClick={
+            !btnLoading ? () => login(enteredUsername, enteredPassword) : null
+          }
+        >
+          {btnLoading ? "Loading…" : "Login"}
         </Button>
         <div>
-          Don't have an account? <Link to="/signup">Signup here</Link>
+          Don't have an account? <Link to="/signup">Signup</Link>
         </div>
       </Form.Group>
     </Form>

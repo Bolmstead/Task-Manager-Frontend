@@ -8,10 +8,12 @@ import UserContext from "../UserContext.js";
 const animatedComponents = makeAnimated();
 
 function CreateTaskPage() {
-  const { loggedInUser } = useContext(UserContext);
+  const { loggedInUser, setAlert, btnLoading, setBtnLoading } =
+    useContext(UserContext);
   const [allClients, setAllClients] = useState([]);
-  const [title, setTitle] = useState(null);
-  const [description, setDescription] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [incompleteForm, setIncompleteForm] = useState(true);
 
   const [selectedClients, setSelectedClients] = useState([]);
 
@@ -45,18 +47,66 @@ function CreateTaskPage() {
     console.log("selectedClients.length", selectedClients.length);
   }, [selectedClients]);
 
+  useEffect(() => {
+    if (
+      title.length > 3 &&
+      description.length > 3 &&
+      selectedClients.length > 0
+    ) {
+      setIncompleteForm(false);
+    } else {
+      setIncompleteForm(true);
+    }
+  }, [title, description, selectedClients]);
+
+  const createTask = async () => {
+    try {
+      setBtnLoading(true);
+      let assignedClientUsernames = [];
+      for (let obj of selectedClients) {
+        assignedClientUsernames.push(obj.value);
+      }
+      const apiObject = {
+        title,
+        description,
+        assignedClientUsernames,
+        status: "To Do",
+      };
+      console.log(
+        "🚀 ~ file: CreateTaskPage.js:54 ~ createTask ~ apiObject:",
+        apiObject
+      );
+
+      let apiResult = await TaxRiseAPI.createTask(apiObject);
+      console.log(
+        "🚀 ~ file: CreateTaskPage.js:59 ~ createTask ~ apiResult:",
+        apiResult
+      );
+      setBtnLoading(false);
+    } catch (err) {
+      setBtnLoading(false);
+      console.log(err);
+
+      setAlert({ message: err });
+    }
+  };
+
   return (
     <div>
       Made it to CREATE Tasks Page!
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Task Title</Form.Label>
-          <Form.Control />
+          <Form.Control onChange={(e) => setTitle(e.target.value)} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" rows={3} />
+          <Form.Control
+            as="textarea"
+            rows={4}
+            onChange={(e) => setDescription(e.target.value)}
+          />
           <Form.Label>Assign to:</Form.Label>
 
           <Select
@@ -71,18 +121,15 @@ function CreateTaskPage() {
               }),
             }}
           />
-          {/* <Form.Select value={selectedClients} aria-label="Account Type">
-            <option value={true}>Client</option>
-            <option value={false}>Admin</option>
-          </Form.Select> */}
         </Form.Group>
 
         <Button
           variant="primary"
-          type="submit"
-          disabled={selectedClients.length < 1}
+          type="button"
+          disabled={incompleteForm || btnLoading}
+          onClick={!btnLoading ? createTask : null}
         >
-          Create!
+          {btnLoading ? "Loading…" : "Create Task"}
         </Button>
       </Form>
     </div>

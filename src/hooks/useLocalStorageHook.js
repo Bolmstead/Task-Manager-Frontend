@@ -17,11 +17,13 @@ import { useState, useEffect } from "react";
 
 function useLocalStorage(key, firstValue = null) {
   const initialValue = localStorage.getItem(key) || firstValue;
+  console.log("🚀 ~ file: useLocalStorageHook.js:20 ~ useLocalStorage ~ initialValue:", initialValue)
 
   const [item, setItem] = useState(initialValue);
+  console.log("🚀 ~ file: useLocalStorageHook.js:23 ~ useLocalStorage ~ item:", item)
 
   useEffect(function setKeyInLocalStorage() {
-    console.debug("hooks useLocalStorage useEffect", "item=", item);
+    console.log("hooks useLocalStorage useEffect", "item=", item);
 
     if (item === null) {
       localStorage.removeItem(key);
