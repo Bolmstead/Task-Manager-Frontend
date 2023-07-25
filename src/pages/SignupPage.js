@@ -9,11 +9,12 @@ function SignupPage() {
 
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
-  const [isClient, setIsClient] = useState(true);
+  const [accountType, setAccountType] = useState("Client");
 
   useEffect(() => {
-    console.log(isClient);
-  }, [isClient]);
+    console.log(accountType);
+    console.log("typeof accountType", typeof accountType);
+  }, [accountType]);
 
   if (loggedInUser) {
     return <Navigate to="/tasks" replace={true} />;
@@ -39,17 +40,25 @@ function SignupPage() {
           value={enteredPassword}
           onChange={(e) => setEnteredPassword(e.target.value)}
         />
-        <Form.Select value={isClient} aria-label="Account Type">
-          <option value={true}>Client</option>
-          <option value={false}>Admin</option>
+        <Form.Select
+          value={accountType}
+          onChange={(e) => setAccountType(e.target.value)}
+          aria-label="Account Type"
+        >
+          <option value={"Client"}>Client</option>
+          <option value={"Admin"}>Admin</option>
         </Form.Select>
 
         <Button
           variant="primary"
-          disabled={btnLoading}
+          disabled={
+            btnLoading ||
+            enteredPassword.length < 8 ||
+            enteredUsername.length < 3
+          }
           onClick={
             !btnLoading
-              ? () => signup(enteredUsername, enteredPassword, isClient)
+              ? () => signup(enteredUsername, enteredPassword, accountType)
               : null
           }
         >

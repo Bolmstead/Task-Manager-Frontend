@@ -64,7 +64,6 @@ function App() {
   // Handles site-wide login
   async function login(enteredUsername, enteredPassword) {
     try {
-
       setBtnLoading(true);
       setAlert(null);
 
@@ -81,7 +80,7 @@ function App() {
 
       localStorage.setItem("token", JSON.stringify(loginToken));
     } catch (error) {
-      console.log("🚀 ~ file: App.js:93 ~ login ~ error:", error)
+      console.log("🚀 ~ file: App.js:93 ~ login ~ error:", error);
       setBtnLoading(false);
 
       setAlert({
@@ -97,15 +96,19 @@ function App() {
     setToken(null);
   }
 
-  async function signup(username, password, isClient, selectedClients) {
+  async function signup(username, password, accountType) {
     try {
       console.log(
-        "🚀 ~ file: App.js:80 ~ signup ~ username, password, isClient:",
+        "🚀 ~ file: App.js:80 ~ signup ~ username, password, accountType:",
         username,
         password,
-        isClient
+        accountType
       );
       setBtnLoading(true);
+      let isClient = true;
+      if (accountType === "Admin") {
+        isClient = false;
+      }
 
       setAlert(null);
       let token = await TaxRiseAPI.signup({ username, password, isClient });
@@ -114,7 +117,7 @@ function App() {
 
       setToken(token);
     } catch (error) {
-      console.log("🚀 ~ file: App.js:126 ~ signup ~ error:", error)
+      console.log("🚀 ~ file: App.js:126 ~ signup ~ error:", error);
       setBtnLoading(false);
 
       setAlert({
