@@ -20,10 +20,6 @@ function CreateTaskPage() {
   useEffect(() => {
     async function grabAllClients() {
       let apiResult = await TaxRiseAPI.getAllClients();
-      console.log(
-        "🚀 ~ file: CreateTaskPage.js:16 ~ grabAllTasks ~ apiResult:",
-        apiResult
-      );
 
       if (apiResult.clients) {
         const tempClients = [];
@@ -34,7 +30,6 @@ function CreateTaskPage() {
             color: "#0052CC",
           });
         }
-        console.log(tempClients);
         setAllClients(tempClients);
       } else {
         setAllClients(null);
@@ -43,9 +38,6 @@ function CreateTaskPage() {
     grabAllClients();
   }, []);
 
-  useEffect(() => {
-    console.log("selectedClients.length", selectedClients.length);
-  }, [selectedClients]);
 
   useEffect(() => {
     if (
@@ -72,16 +64,9 @@ function CreateTaskPage() {
         assignedClientUsernames,
         status: "To Do",
       };
-      console.log(
-        "🚀 ~ file: CreateTaskPage.js:54 ~ createTask ~ apiObject:",
-        apiObject
-      );
 
       let apiResult = await TaxRiseAPI.createTask(apiObject);
-      console.log(
-        "🚀 ~ file: CreateTaskPage.js:59 ~ createTask ~ apiResult:",
-        apiResult
-      );
+
       setBtnLoading(false);
     } catch (err) {
       setBtnLoading(false);
@@ -129,7 +114,7 @@ function CreateTaskPage() {
           disabled={incompleteForm || btnLoading}
           onClick={!btnLoading ? createTask : null}
         >
-          {btnLoading ? "Loading…" : "Create Task"}
+          {btnLoading ? "Creating..." : "Create Task"}
         </Button>
       </Form>
     </div>

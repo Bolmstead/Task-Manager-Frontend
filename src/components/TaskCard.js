@@ -1,13 +1,7 @@
 import Card from "react-bootstrap/Card";
 
 function TaskCard({ title, description, status, clientUsername }) {
-  console.log(
-    "🚀 ~ file: TaskCard.js:4 ~ TaskCard ~ title, description, clientUsername:",
-    title,
-    description,
-    status,
-    clientUsername
-  );
+
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Body>

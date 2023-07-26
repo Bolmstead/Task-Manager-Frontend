@@ -25,10 +25,7 @@ class TaxRiseAPI {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     };
     const params = method === "get" ? data : {};
-    console.log(
-      "🚀 ~ file: Api.js:26 ~ TaxRiseAPI ~ request ~ headers:",
-      headers
-    );
+
 
     try {
       return (await axios({ url, method, data, params, headers })).data;
@@ -45,7 +42,6 @@ class TaxRiseAPI {
 
   static async login(data) {
     const res = await this.request(`auth/login`, data, "post");
-    console.log("🚀 ~ file: Api.js:44 ~ TaxRiseAPI ~ login ~ res:", res);
     return res.token;
   }
 
@@ -80,16 +76,10 @@ class TaxRiseAPI {
 
   static async getAssignmentDetails(assignmentId) {
     const url = `assignments/details/${assignmentId}`;
-    console.log(
-      "🚀 ~ file: Api.js:79 ~ TaxRiseAPI ~ getTaskDetails ~ url:",
-      url
-    );
+
 
     const res = await this.request(url);
-    console.log(
-      "🚀 ~ file: Api.js:79 ~ TaxRiseAPI ~ getTaskDetails ~ res:",
-      res
-    );
+
     return res;
   }
 
@@ -109,9 +99,7 @@ class TaxRiseAPI {
   }
 
   static async createTask(data) {
-    console.log("🚀 ~ file: Api.js:76 ~ TaxRiseAPI ~ createTask ~ data:", data);
     const res = await this.request(`tasks`, data, "post");
-    console.log("🚀 ~ file: Api.js:79 ~ TaxRiseAPI ~ createTask ~ res:", res);
 
     return res;
   }

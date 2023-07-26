@@ -18,10 +18,7 @@ function MyTasksPage() {
     try {
       async function createTaskComponents() {
         const { assignments } = loggedInUser;
-        console.log(
-          "🚀 ~ file: MyTasksPage.js:17 ~ createTaskComponents ~ assignments:",
-          assignments
-        );
+
 
         if (assignments.length < 1) {
           return <h1>No Tasks assigned yet</h1>;

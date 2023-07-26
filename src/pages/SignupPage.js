@@ -11,10 +11,7 @@ function SignupPage() {
   const [enteredPassword, setEnteredPassword] = useState("");
   const [accountType, setAccountType] = useState("Client");
 
-  useEffect(() => {
-    console.log(accountType);
-    console.log("typeof accountType", typeof accountType);
-  }, [accountType]);
+
 
   if (loggedInUser) {
     if (loggedInUser.isClient) {

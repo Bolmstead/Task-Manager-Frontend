@@ -13,17 +13,10 @@ function AssignmentDetailsPage() {
   const [loadingTask, setLoadingTask] = useState(true);
 
   useEffect(() => {
-    console.log("%%%%%g USE EFFECT");
-
     async function grabAssignmentDetails() {
-      console.log("grabAssignmentDetails function executed");
       try {
-        console.log("%%%%%getting task details");
         let apiResult = await TaxRiseAPI.getAssignmentDetails(params.id);
-        console.log(
-          "🚀 ~ file: AssignmentDetailsPage.js:16 ~ grabAssignmentDetails ~ apiResult:",
-          apiResult
-        );
+
         const { task, user, status } = apiResult;
         if (loggedInUser.isClient && user.username !== loggedInUser.username) {
           return <Navigate to="/" replace={true} />;
@@ -31,20 +24,14 @@ function AssignmentDetailsPage() {
         setAssignment(apiResult);
         setLoadingTask(false);
       } catch (err) {
-        console.log("handleERRRORROROR");
-        console.log(
-          "🚀 ~ file: AssignmentDetailsPage.js:45 ~ useEffect ~ err:",
-          err
-        );
         setLoadingTask(false);
       }
     }
     grabAssignmentDetails();
   }, []);
 
-
   useEffect(() => {
-    console.log(assignment);
+    console.log("assignment", assignment);
   }, [assignment]);
 
   return (
@@ -66,7 +53,11 @@ function AssignmentDetailsPage() {
             </Card.Body>
           </Card>{" "}
           <br />
-          <ChatBox responses={assignment.responses}/>
+          <ChatBox
+            responses={assignment.responses}
+            currentStatus={assignment.status}
+            assignmentId={assignment._id}
+          />
         </>
       )}{" "}
       <br />

@@ -15,10 +15,7 @@ function AllTasksPage() {
     async function grabAllTasks() {
       try {
         let apiResult = await TaxRiseAPI.getAllAssignments();
-        console.log(
-          "🚀 ~ file: AllTasksPage.js:16 ~ grabAllTasks ~ apiResult:",
-          apiResult
-        );
+
         let tempAssignmentComponents = [];
         if (apiResult.length > 0) {
           apiResult.map((assignment) => {
@@ -26,12 +23,7 @@ function AllTasksPage() {
             const { username } = user;
             const { title, description } = task;
 
-            console.log(
-              "🚀 ~ file: AllTasksPage.js:25 ~ apiResult.map ~ title, description:",
-              title,
-              description,
-              task
-            );
+
             tempAssignmentComponents.push(
               <Link
                 style={{ textDecoration: "none" }}
