@@ -17,7 +17,11 @@ function SignupPage() {
   }, [accountType]);
 
   if (loggedInUser) {
-    return <Navigate to="/tasks" replace={true} />;
+    if (loggedInUser.isClient) {
+      return <Navigate to="/my-tasks" replace={true} />;
+    } else {
+      return <Navigate to="/all-tasks" replace={true} />;
+    }
   }
 
   return (
@@ -65,7 +69,10 @@ function SignupPage() {
           {btnLoading ? "Loading…" : "Signup"}
         </Button>
         <div>
-          Already have an account? <Link to="/login">Login</Link>
+          Already have an account?{" "}
+          <Link style={{ textDecoration: "none" }} to="/login">
+            Login
+          </Link>
         </div>
       </Form.Group>
     </Form>

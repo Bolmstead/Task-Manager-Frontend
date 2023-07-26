@@ -9,11 +9,14 @@ import Context from "./UserContext.js";
 import AlertMessage from "./components/AlertMessage";
 import NavigationBar from "./components/NavigationBar.js";
 import useLocalStorage from "./hooks/useLocalStorageHook";
+import AllTasksPage from "./pages/AllTasksPage";
+import AssignmentDetailsPage from "./pages/AssignmentDetailsPage";
 import CreateTaskPage from "./pages/CreateTaskPage";
 import LoginPage from "./pages/LoginPage.js";
+import MyTasksPage from "./pages/MyTasksPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import SignupPage from "./pages/SignupPage.js";
-import TasksPage from "./pages/TasksPage";
+
 import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
@@ -127,6 +130,10 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    console.log("loggedInUser", loggedInUser);
+  }, [loggedInUser]);
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -155,8 +162,12 @@ function App() {
                 <Route exact path="/signup" element={<SignupPage />}></Route>
 
                 <Route element={<PrivateRoutes />}>
-                  {/* <Route element={<TaskDetailsPage />}></Route> */}
-                  <Route path="/tasks" element={<TasksPage />}></Route>
+                  <Route
+                    path="/assignment/:id"
+                    element={<AssignmentDetailsPage />}
+                  ></Route>
+                  <Route path="/my-tasks" element={<MyTasksPage />}></Route>
+                  <Route path="/all-tasks" element={<AllTasksPage />}></Route>
                   <Route
                     path="/create-task"
                     element={<CreateTaskPage />}

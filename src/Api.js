@@ -58,8 +58,13 @@ class TaxRiseAPI {
     const res = await this.request(`users/${username}`);
     return res;
   }
+
+  static async getAllAssignments() {
+    const res = await this.request("assignments/all");
+    return res;
+  }
   static async getAllTasks() {
-    const res = await this.request("tasks/all-tasks");
+    const res = await this.request("tasks/all");
     return res;
   }
 
@@ -73,9 +78,33 @@ class TaxRiseAPI {
     return res;
   }
 
-  static async getTaskDetails(taskId) {
-    const url = `tasks/${taskId}`;
+  static async getAssignmentDetails(assignmentId) {
+    const url = `assignments/details/${assignmentId}`;
+    console.log(
+      "🚀 ~ file: Api.js:79 ~ TaxRiseAPI ~ getTaskDetails ~ url:",
+      url
+    );
+
     const res = await this.request(url);
+    console.log(
+      "🚀 ~ file: Api.js:79 ~ TaxRiseAPI ~ getTaskDetails ~ res:",
+      res
+    );
+    return res;
+  }
+
+  static async editAssignment(assignmentId, data) {
+    const url = `assignments/edit/${assignmentId}`;
+    console.log(
+      "🚀 ~ file: Api.js:79 ~ TaxRiseAPI ~ getTaskDetails ~ url:",
+      url
+    );
+
+    const res = await this.request(url, data, "put");
+    console.log(
+      "🚀 ~ file: Api.js:79 ~ TaxRiseAPI ~ getTaskDetails ~ res:",
+      res
+    );
     return res;
   }
 

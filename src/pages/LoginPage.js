@@ -11,7 +11,11 @@ function LoginPage() {
   const [enteredPassword, setEnteredPassword] = useState("");
 
   if (loggedInUser) {
-    return <Navigate to="/tasks" replace={true} />;
+    if (loggedInUser.isClient) {
+      return <Navigate to="/my-tasks" replace={true} />;
+    } else {
+      return <Navigate to="/all-tasks" replace={true} />;
+    }
   }
 
   return (
@@ -45,7 +49,10 @@ function LoginPage() {
           {btnLoading ? "Loading…" : "Login"}
         </Button>
         <div>
-          Don't have an account? <Link to="/signup">Signup</Link>
+          Don't have an account?{" "}
+          <Link style={{ textDecoration: "none" }} to="/signup">
+            Signup
+          </Link>
         </div>
       </Form.Group>
     </Form>
