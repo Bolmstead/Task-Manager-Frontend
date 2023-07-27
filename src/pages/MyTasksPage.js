@@ -26,9 +26,7 @@ function MyTasksPage() {
         if (assignments.length < 1) {
           console.log("assignments are less than 1");
           setLoadingTasks(false);
-          return setTaskComponents(
-            <div style={{ color: "pink" }}>No Tasks assigned yet</div>
-          );
+          return setTaskComponents(<div>No Tasks assigned yet</div>);
         }
 
         const tempTaskComponents = [];

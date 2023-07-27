@@ -37,7 +37,7 @@ function AssignmentDetailsPage() {
   }, [assignment]);
 
   function updateAssignment() {
-    setTriggerAssignmentUpdate(!triggerAssignmentUpdate)
+    setTriggerAssignmentUpdate(!triggerAssignmentUpdate);
   }
 
   return (
