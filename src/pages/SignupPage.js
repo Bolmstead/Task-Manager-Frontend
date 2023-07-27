@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, Navigate } from "react-router-dom";
@@ -11,8 +11,6 @@ function SignupPage() {
   const [enteredPassword, setEnteredPassword] = useState("");
   const [accountType, setAccountType] = useState("Client");
 
-
-
   if (loggedInUser) {
     if (loggedInUser.isClient) {
       return <Navigate to="/my-tasks" replace={true} />;
@@ -22,8 +20,8 @@ function SignupPage() {
   }
 
   return (
-    <Form>
-      <h1>Create Account</h1>
+    <Form className="account-form">
+      <h1 className="page-title">Signup</h1>{" "}
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Username</Form.Label>
         <Form.Control
@@ -32,8 +30,6 @@ function SignupPage() {
           placeholder="name@example.com"
           value={enteredUsername}
         />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
@@ -41,6 +37,8 @@ function SignupPage() {
           value={enteredPassword}
           onChange={(e) => setEnteredPassword(e.target.value)}
         />
+        <Form.Label>Account Type</Form.Label>
+
         <Form.Select
           value={accountType}
           onChange={(e) => setAccountType(e.target.value)}
@@ -52,6 +50,7 @@ function SignupPage() {
 
         <Button
           variant="primary"
+          className="my-4 px-5"
           disabled={
             btnLoading ||
             enteredPassword.length < 8 ||
@@ -65,11 +64,8 @@ function SignupPage() {
         >
           {btnLoading ? "Loading…" : "Signup"}
         </Button>
-        <div>
-          Already have an account?{" "}
-          <Link style={{ textDecoration: "none" }} to="/login">
-            Login
-          </Link>
+        <div className="account-text">
+          Already have an account? <Link to="/login">Login</Link>
         </div>
       </Form.Group>
     </Form>

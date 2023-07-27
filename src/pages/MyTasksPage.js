@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Container, Stack } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import { Link, Navigate } from "react-router-dom";
 import UserContext from "../UserContext.js";
@@ -18,10 +18,17 @@ function MyTasksPage() {
     try {
       async function createTaskComponents() {
         const { assignments } = loggedInUser;
-
+        console.log(
+          "🚀 ~ file: MyTasksPage.js:21 ~ createTaskComponents ~ assignments:",
+          assignments
+        );
 
         if (assignments.length < 1) {
-          return <h1>No Tasks assigned yet</h1>;
+          console.log("assignments are less than 1");
+          setLoadingTasks(false);
+          return setTaskComponents(
+            <div style={{ color: "pink" }}>No Tasks assigned yet</div>
+          );
         }
 
         const tempTaskComponents = [];
@@ -30,8 +37,8 @@ function MyTasksPage() {
           const { title, description } = assignment.task;
           tempTaskComponents.push(
             <Link
-              style={{ textDecoration: "none" }}
               to={`/assignment/${assignment._id}`}
+              className="task-card-link"
             >
               <TaskCard title={title} description={description} />{" "}
             </Link>
@@ -63,22 +70,23 @@ function MyTasksPage() {
   }
 
   return (
-    <div>
-      Made it to Tasks Page! <br />
-      {!loggedInUser.isClient && (
-        <Link style={{ textDecoration: "none" }} to="/create-task">
-          <Button>Create Task</Button>
-        </Link>
-      )}
-      <br />
-      {loadingTasks ? (
-        <Spinner></Spinner>
-      ) : taskComponents.length > 0 ? (
-        taskComponents
-      ) : (
-        "No tasks created yet"
-      )}
-    </div>
+    <Container>
+      <Stack gap={3} className="col-md-5 mx-auto">
+        <div className="tasks-page-title">
+          <h1>Your Assigned Tasks</h1>
+        </div>
+
+        {loadingTasks ? (
+          <div className="spinner-container">
+            <Spinner></Spinner>
+          </div>
+        ) : taskComponents.length > 0 ? (
+          taskComponents
+        ) : (
+          <div className="soft-gray">No Tasks assigned yet</div>
+        )}
+      </Stack>
+    </Container>
   );
 }
 

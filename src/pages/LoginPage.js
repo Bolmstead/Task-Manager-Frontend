@@ -19,8 +19,8 @@ function LoginPage() {
   }
 
   return (
-    <Form>
-      <h1>Login</h1>
+    <Form className="account-form">
+      <h1 className="page-title">Login</h1>{" "}
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Username</Form.Label>
         <Form.Control
@@ -29,8 +29,6 @@ function LoginPage() {
           placeholder="name@example.com"
           value={enteredUsername}
         />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
@@ -38,21 +36,24 @@ function LoginPage() {
           value={enteredPassword}
           onChange={(e) => setEnteredPassword(e.target.value)}
         />
-
-        <Button
-          variant="primary"
-          disabled={btnLoading}
-          onClick={
-            !btnLoading ? () => login(enteredUsername, enteredPassword) : null
-          }
-        >
-          {btnLoading ? "Loading…" : "Login"}
-        </Button>
-        <div>
-          Don't have an account?{" "}
-          <Link style={{ textDecoration: "none" }} to="/signup">
-            Signup
-          </Link>
+        <div className="account-btn-container">
+          <Button
+            variant="primary"
+            disabled={
+              btnLoading ||
+              enteredPassword.length < 8 ||
+              enteredUsername.length < 3
+            }
+            className="my-4 px-5"
+            onClick={
+              !btnLoading ? () => login(enteredUsername, enteredPassword) : null
+            }
+          >
+            {btnLoading ? "Loading…" : "Login"}
+          </Button>
+        </div>
+        <div className="account-text">
+          Don't have an account? <Link to="/signup">Signup</Link>
         </div>
       </Form.Group>
     </Form>

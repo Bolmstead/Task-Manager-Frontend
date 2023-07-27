@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -14,8 +13,62 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.pink {
+  color: pink;
+}
+
+.page-title {
+  padding: 20px;
+}
+
+.form-label {
+  font-size: 22px;
+}
+
+.account-form {
+  min-width: 300px;
+}
+
+.account-text {
+  font-size: 16px;
+  text-decoration: none;
+}
+
+
+
+
+.link {
+}
+
+.task-card {
+}
+
+.task-card-body {
+  text-align: left;
+}
+
+.task-card-link {
+  width: 100%;
+  text-decoration: none;
+}
+
+.task-card-title {
+  font-size: 30px;
+}
+
+.task-card-assignees {
+  font-size: 20px;
+}
+
+.task-card-status {
+  font-size: 20px;
+}
+.task-card-description {
+  font-size: 15px;
+}
+
+.soft-gray {
+  color: #575757;
 }
 
 @keyframes App-logo-spin {

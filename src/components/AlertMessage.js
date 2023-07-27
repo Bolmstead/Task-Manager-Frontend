@@ -15,10 +15,17 @@ function AlertMessage({ alert }) {
     <Modal show={alert} style={{ width: "100%" }}>
       <Modal.Header closeButton onHide={() => setAlert(null)}>
         {" "}
-        <i
-          class="bi bi-check-circle-fill text-success px-3"
-          style={{ fontSize: "30px" }}
-        ></i>
+        {type === "success" ? (
+          <i
+            className="bi bi-check-circle-fill text-success px-3"
+            style={{ fontSize: "30px" }}
+          ></i>
+        ) : (
+          <i
+            className="bi bi-exclamation-circle-fill text-danger px-3"
+            style={{ fontSize: "30px" }}
+          ></i>
+        )}
         {message}{" "}
       </Modal.Header>
     </Modal>

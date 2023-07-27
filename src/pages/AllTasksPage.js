@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Container, Stack } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import { Link, Navigate } from "react-router-dom";
 import TaxRiseAPI from "../Api.js";
@@ -23,12 +23,8 @@ function AllTasksPage() {
             const { username } = user;
             const { title, description } = task;
 
-
             tempAssignmentComponents.push(
-              <Link
-                style={{ textDecoration: "none" }}
-                to={`/assignment/${_id}`}
-              >
+              <Link to={`/assignment/${_id}`} className="task-card-link">
                 <TaskCard
                   title={title}
                   description={description}
@@ -54,22 +50,21 @@ function AllTasksPage() {
   }
 
   return (
-    <div>
-      All Tasks <br />
-      {!loggedInUser.isClient && (
-        <Link style={{ textDecoration: "none" }} to="/create-task">
-          <Button>Create Task</Button>
-        </Link>
-      )}
-      <br />
-      {loadingTasks ? (
-        <Spinner></Spinner>
-      ) : assignmentComponents.length > 0 ? (
-        assignmentComponents
-      ) : (
-        "No tasks created yet"
-      )}
-    </div>
+    <Container>
+      <Stack gap={3} className="col-md-5 mx-auto">
+        <div className="tasks-page-title">
+          <h1>All Assigned Tasks</h1>
+        </div>
+
+        {loadingTasks ? (
+          <Spinner></Spinner>
+        ) : assignmentComponents.length > 0 ? (
+          assignmentComponents
+        ) : (
+          "No tasks created yet"
+        )}
+      </Stack>
+    </Container>
   );
 }
 

@@ -133,50 +133,52 @@ export default function ChatBox({ responses, currentStatus, assignmentId }) {
               </Button>
             </MDBCardFooter>
           )}
+          {loggedInUser.isClient && (
+            <MDBCardFooter className="text-muted d-flex  align-items-center p-3">
+              <Form.Group className="d-flex flex-fill">
+                <Form.Control type="file" />
 
-          <MDBCardFooter className="text-muted d-flex  align-items-center p-3">
-            <Form.Group className="d-flex flex-fill">
-              <Form.Control type="file" />
+                <Button
+                  variant="primary"
+                  type="button"
+                  style={{ width: "100px" }}
+                  disabled={uploadingFile || !fileURL}
+                  onClick={!uploadingFile ? uploadFile : null}
+                >
+                  {uploadingFile ? "Uploading" : "Upload"}
+                </Button>
+              </Form.Group>
+            </MDBCardFooter>
+          )}
+          {loggedInUser.isClient && (
+            <MDBCardFooter className="text-muted d-flex  align-items-center p-3">
+              <Form.Group className="d-flex justify-content-between flex-fill">
+                <Form.Label className="fs-5 px-3">Status:</Form.Label>
 
-              <Button
-                variant="primary"
-                type="button"
-                style={{ width: "100px" }}
-                disabled={uploadingFile || !fileURL}
-                onClick={!uploadingFile ? uploadFile : null}
-              >
-                {uploadingFile ? "Uploading" : "Upload"}
-              </Button>
-            </Form.Group>
-          </MDBCardFooter>
-
-          <MDBCardFooter className="text-muted d-flex  align-items-center p-3">
-            <Form.Group className="d-flex justify-content-between flex-fill">
-              <Form.Label className="fs-5 px-3">Status:</Form.Label>
-
-              <Form.Select
-                className="w-75 px-3"
-                value={status}
-                aria-label="Status:"
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <option value="To Do">To Do</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Done">Done</option>
-              </Form.Select>
-              <Button
-                variant="primary"
-                type="button"
-                style={{ width: "100px" }}
-                disabled={updatingStatus}
-                onClick={
-                  !updatingStatus ? () => editAssignment("status") : null
-                }
-              >
-                {updatingStatus ? "Saving..." : "Save"}
-              </Button>
-            </Form.Group>
-          </MDBCardFooter>
+                <Form.Select
+                  className="w-75 px-3"
+                  value={status}
+                  aria-label="Status:"
+                  onChange={(e) => setStatus(e.target.value)}
+                >
+                  <option value="To Do">To Do</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Done">Done</option>
+                </Form.Select>
+                <Button
+                  variant="primary"
+                  type="button"
+                  style={{ width: "100px" }}
+                  disabled={updatingStatus}
+                  onClick={
+                    !updatingStatus ? () => editAssignment("status") : null
+                  }
+                >
+                  {updatingStatus ? "Saving..." : "Save"}
+                </Button>
+              </Form.Group>
+            </MDBCardFooter>
+          )}
         </MDBCard>
       </MDBCol>
     </MDBRow>

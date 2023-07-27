@@ -38,7 +38,6 @@ function CreateTaskPage() {
     grabAllClients();
   }, []);
 
-
   useEffect(() => {
     if (
       title.length > 3 &&
@@ -66,23 +65,28 @@ function CreateTaskPage() {
       };
 
       let apiResult = await TaxRiseAPI.createTask(apiObject);
-
       setBtnLoading(false);
+      setTitle("");
+      setDescription("");
+      setSelectedClients([]);
+      setAlert({ type: "success", message: "Task was created and assigned" });
     } catch (err) {
       setBtnLoading(false);
       console.log(err);
 
-      setAlert({ message: err });
+      setAlert({ type: "error", message: err });
     }
   };
 
   return (
     <div>
-      Made it to CREATE Tasks Page!
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Task Title</Form.Label>
-          <Form.Control onChange={(e) => setTitle(e.target.value)} />
+          <Form.Control
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -90,6 +94,7 @@ function CreateTaskPage() {
           <Form.Control
             as="textarea"
             rows={4}
+            value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
           <Form.Label>Assign to:</Form.Label>
@@ -114,7 +119,7 @@ function CreateTaskPage() {
           disabled={incompleteForm || btnLoading}
           onClick={!btnLoading ? createTask : null}
         >
-          {btnLoading ? "Creating..." : "Create Task"}
+          {btnLoading ? "Creating..." : "Create"}
         </Button>
       </Form>
     </div>

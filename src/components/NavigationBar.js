@@ -18,15 +18,18 @@ function NavigationBar() {
               : "As an Admin, you can create and view all Tasks"}
           </Navbar.Text>
           <Navbar.Collapse className="justify-content-end">
-            <Nav>
-              {loggedInUser.isClient ? (
+            {loggedInUser.isClient ? (
+              <Nav>
                 <Nav.Link href="/my-tasks">My Tasks</Nav.Link>
-              ) : (
+                <Nav.Link onClick={logout}>logout</Nav.Link>
+              </Nav>
+            ) : (
+              <Nav>
+                <Nav.Link href="/create-task"> Create Task</Nav.Link>
                 <Nav.Link href="/all-tasks">All Tasks</Nav.Link>
-              )}
-
-              <Nav.Link onClick={logout}>logout</Nav.Link>
-            </Nav>
+                <Nav.Link onClick={logout}>logout</Nav.Link>
+              </Nav>
+            )}
           </Navbar.Collapse>
         </Container>
       ) : (
