@@ -1,6 +1,6 @@
 # TaxRise Client and Task Managment Application
 
-A User Interface that enables Administrators to assign tasks to Clients and for Clients to complete and update these Tasks.
+The API that supports the
 
 ## Features
 
@@ -17,7 +17,7 @@ This frontend web application uses a number of open source projects to work prop
 - [React Bootstrap] - UI boilerplate for modern web apps
 - [JSON Web Tokens] - A way to securely transmit information between parties
 - [UUID] - Tool to create unique ID's
-- [Firebase] - Databse used to store files
+- [Firebase] - Database used to store files
 
 The Backend technologies utilized are:
 
@@ -67,16 +67,16 @@ This application requires [ReactJS](https://nodejs.org/) v18.2.0+ to run. To get
 
 ### Connect to Firebase
 
-4. Create a [Firebase](https://firebase.google.com/) account and follow their provided steps in connecting with a React Application. In your frontend, set your FIREBASE_API_KEY, FIREBASE_MESSAGING_SENDER_ID, FIREBASE_APP_ID, and FIREBASE_MEASUREMENT_ID environment variables based on the information Firebase provides.
+8. Create a [Firebase](https://firebase.google.com/) account and follow their provided steps in connecting with a React Application. In your frontend, set your FIREBASE_API_KEY, FIREBASE_MESSAGING_SENDER_ID, FIREBASE_APP_ID, and FIREBASE_MEASUREMENT_ID environment variables based on the information Firebase provides.
 
 ### Create Environment Variables in Frontend Repository
 
-8. Set REACT_APP_ENV to either "development" or "production" depending on your environment.
-9. Set REACT_APP_BACKEND_PORT to a port of your choice.
+9. Set REACT_APP_ENV to either "development" or "production" depending on your environment.
+10. Set REACT_APP_BACKEND_PORT to a port of your choice.
 
 ### Start your project
 
-10. Run local servers in your frontend and backend repositories by running:
+11. Run local servers in your frontend and backend repositories by running:
 
 ```sh
 npm start
