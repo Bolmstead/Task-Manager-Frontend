@@ -28,7 +28,11 @@ function MyTasksPage() {
               to={`/assignment/${assignment._id}`}
               className="task-card-link"
             >
-              <TaskCard title={title} description={description} />{" "}
+              <TaskCard
+                title={title}
+                description={description}
+                status={assignment.status}
+              />{" "}
             </Link>
           );
         }
