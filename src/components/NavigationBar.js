@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Container } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { Link } from "react-router-dom";
 import UserContext from "../UserContext.js";
 
 function NavigationBar() {
@@ -20,13 +21,27 @@ function NavigationBar() {
           <Navbar.Collapse className="justify-content-end">
             {loggedInUser.isClient ? (
               <Nav>
-                <Nav.Link href="/my-tasks">My Tasks</Nav.Link>
+                <Nav.Link>
+                  {" "}
+                  <Link className="appbar-link" to="/my-tasks">
+                    My Tasks{" "}
+                  </Link>
+                </Nav.Link>
                 <Nav.Link onClick={logout}>logout</Nav.Link>
               </Nav>
             ) : (
               <Nav>
-                <Nav.Link href="/create-task"> Create Task</Nav.Link>
-                <Nav.Link href="/all-tasks">All Tasks</Nav.Link>
+                <Nav.Link>
+                  {" "}
+                  <Link className="appbar-link" to="/create-task">
+                    Create Task
+                  </Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link className="appbar-link" to="/all-tasks">
+                    All Tasks
+                  </Link>
+                </Nav.Link>
                 <Nav.Link onClick={logout}>logout</Nav.Link>
               </Nav>
             )}

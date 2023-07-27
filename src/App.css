@@ -18,6 +18,12 @@
   color: #575757;
 }
 
+.appbar-link {
+  width: 100%;
+  text-decoration: none;
+  color: #575757;
+}
+
 /* Titles */
 .page-title {
   padding: 20px;
