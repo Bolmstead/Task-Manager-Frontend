@@ -4,19 +4,29 @@ A User Interface that enables Administrators to assign tasks to Clients and for 
 
 ## Features
 
-- Create Admin or Client accounts and securly access these accounts with JSON Web Tokens.
-- Admins can view all tasks and create/assign new tasks to Clients
-- Clients can view their assigned tasks and respond to their tasks by sending a message and updating the tasks's status.
+- Create Admin or Client accounts and securly use these accounts with JSON Web Tokens.
+- Admins can view all tasks and create/assign new tasks to Clients.
+- Clients can view their assigned tasks and respond to their tasks by sending a message or updating the tasks's status.
 - Clients will soon be able to upload file attachments for the Client and Admin to view.
 
 ## Tech
 
-This frontend web application uses a number of open source projects to work properly:
+This frontend web application uses a number of open source projects to work properly. The Frontend technologies utilized are:
 
 - [ReactJS] - HTML enhanced for web apps!
 - [React Bootstrap] - UI boilerplate for modern web apps
 - [JSON Web Tokens] - A way to securely transmit information between parties
 - [UUID] - Tool to create unique ID's
+
+The Backend Technologies utilized are:
+
+- [Node.JS] - HTML enhanced for web apps!
+- [Express.JS] - UI boilerplate for modern web apps
+- [JSON Web Tokens] - A way to securely transmit information between parties
+- [UUID] - Tool to create unique ID's
+- [JSON Schema] - A JSON payload validation tool
+- [Bcrypt] - A hashing tool to secure passwords
+- [Mongoose] - A MongoDB object modeling tool
 
 ## How to Run the Project
 
@@ -62,9 +72,10 @@ This application requires [ReactJS](https://nodejs.org/) v18.2.0+ to run. To get
 ### Start your project
 
 10. Run local servers in your frontend and backend repositories by running:
-   ```sh
-   npm start
-   ```
+
+```sh
+npm start
+```
 
 ## Project Links
 
@@ -78,7 +89,10 @@ Berkley Olmstead - olms2074@gmail.com - [Linkedin](https://www.linkedin.com/in/b
 
 [node.js]: http://nodejs.org
 [React Bootstrap]: https://react-bootstrap.netlify.app/
-[express]: http://expressjs.com
+[Express.JS]: http://expressjs.com
 [ReactJS]: https://react.dev/
 [JSON Web Tokens]: https://www.npmjs.com/package/jsonwebtoken
 [UUID]: https://www.npmjs.com/package/uuid
+[Bcrypt]: https://www.npmjs.com/package/bcrypt
+[JSON Schema]: https://www.npmjs.com/package/jsonschema
+[Mongoose]: https://www.npmjs.com/package/mongoose
