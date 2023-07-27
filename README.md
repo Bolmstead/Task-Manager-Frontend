@@ -5,7 +5,7 @@ A User Interface that enables Administrators to assign tasks to Clients and for 
 ## Features
 
 - Ability to create Admin or Client accounts and securly use these accounts using JSON Web Tokens.
-- Admins can view all tasks and create/assign new tasks to Clients.
+- Admins can view all tasks and create/assign new tasks to Clients. They also have the ability to view Clients' responses to tasks by clicking on a Task card to view the task details page.
 - Clients can view their assigned tasks and respond to their tasks by sending a message or updating the tasks's status.
 - Clients will soon be able to upload file attachments for the Client and Admin to view.
 
