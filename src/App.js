@@ -14,7 +14,6 @@ import AssignmentDetailsPage from "./pages/AssignmentDetailsPage";
 import CreateTaskPage from "./pages/CreateTaskPage";
 import LoginPage from "./pages/LoginPage.js";
 import MyTasksPage from "./pages/MyTasksPage";
-import NotFoundPage from "./pages/NotFoundPage";
 import SignupPage from "./pages/SignupPage.js";
 
 import PrivateRoutes from "./utils/PrivateRoutes";
@@ -27,19 +26,15 @@ function App() {
   const [btnLoading, setBtnLoading] = useState(false);
 
   useEffect(
+    // Grab the userinfo with API call using token in local storage and save user to state
     function loadUserInfo() {
       console.debug("App useEffect loadUserInfo", "token=", token);
-
       async function getLoggedInUser() {
         if (token) {
           try {
-            let { username } = jwt_decode(token);
-
-            // put the token on the Api class so it can use it to call the API.
+            const { username } = jwt_decode(token);
             TaxRiseAPI.token = token;
-
-            let currentUser = await TaxRiseAPI.getLoggedInUser(username);
-
+            const currentUser = await TaxRiseAPI.getLoggedInUser(username);
             setLoggedInUser(currentUser);
           } catch (err) {
             console.error("App loadUserInfo: problem loading", err);
@@ -48,10 +43,6 @@ function App() {
         }
         setInfoLoaded(true);
       }
-
-      // set infoLoaded to false while async getLoggedInUser runs; once the
-      // data is fetched (or even if an error happens!), this will be set back
-      // to false to control the spinner.
       setInfoLoaded(false);
       getLoggedInUser();
     },
@@ -63,20 +54,15 @@ function App() {
     try {
       setBtnLoading(true);
       setAlert(null);
-
-      let loginToken = await TaxRiseAPI.login({
+      const loginToken = await TaxRiseAPI.login({
         username: enteredUsername,
         password: enteredPassword,
       });
       setBtnLoading(false);
-
       setToken(loginToken);
-
       localStorage.setItem("token", JSON.stringify(loginToken));
     } catch (error) {
-      console.log("🚀 ~ file: App.js:93 ~ login ~ error:", error);
       setBtnLoading(false);
-
       setAlert({
         type: "error",
         message: error.message || "Error Logging in",
@@ -84,12 +70,7 @@ function App() {
     }
   }
 
-  // Handles site-wide logout
-  function logout() {
-    setLoggedInUser(null);
-    setToken(null);
-  }
-
+  // Creates user and logs the new user in
   async function signup(username, password, accountType) {
     try {
       setBtnLoading(true);
@@ -99,12 +80,11 @@ function App() {
       }
 
       setAlert(null);
-      let token = await TaxRiseAPI.signup({ username, password, isClient });
+      const token = await TaxRiseAPI.signup({ username, password, isClient });
       setBtnLoading(false);
 
       setToken(token);
     } catch (error) {
-      console.log("🚀 ~ file: App.js:126 ~ signup ~ error:", error);
       setBtnLoading(false);
 
       setAlert({
@@ -112,6 +92,12 @@ function App() {
         message: error.message || "Error Signing up",
       });
     }
+  }
+
+  // Handles site-wide logout
+  function logout() {
+    setLoggedInUser(null);
+    setToken(null);
   }
 
   return (
@@ -153,7 +139,7 @@ function App() {
                     element={<CreateTaskPage />}
                   ></Route>
                 </Route>
-                <Route path="*" element={<NotFoundPage />} />
+                <Route path="*" element={<MyTasksPage />} />
               </Routes>
             )}
           </header>

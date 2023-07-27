@@ -6,10 +6,10 @@ import UserContext from "../UserContext.js";
 
 function LoginPage() {
   const { login, loggedInUser, btnLoading } = useContext(UserContext);
-
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
 
+  // prevent loggedin User from accessing page
   if (loggedInUser) {
     if (loggedInUser.isClient) {
       return <Navigate to="/my-tasks" replace={true} />;
@@ -17,11 +17,10 @@ function LoginPage() {
       return <Navigate to="/all-tasks" replace={true} />;
     }
   }
-
   return (
     <Form className="general-form">
       <h1 className="page-title">Login</h1>{" "}
-      <Form.Group className="mb-3" controlId="loginForm">
+      <Form.Group className="mb-2" controlId="loginUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control
           onChange={(e) => setEnteredUsername(e.target.value)}
@@ -29,6 +28,8 @@ function LoginPage() {
           placeholder="name@example.com"
           value={enteredUsername}
         />
+      </Form.Group>
+      <Form.Group className="mb-2" controlId="loginPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"

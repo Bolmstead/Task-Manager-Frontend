@@ -11,6 +11,7 @@ function SignupPage() {
   const [enteredPassword, setEnteredPassword] = useState("");
   const [accountType, setAccountType] = useState("Client");
 
+  // prevent loggedin User from accessing page
   if (loggedInUser) {
     if (loggedInUser.isClient) {
       return <Navigate to="/my-tasks" replace={true} />;
@@ -22,7 +23,7 @@ function SignupPage() {
   return (
     <Form className="general-form">
       <h1 className="page-title">Signup</h1>{" "}
-      <Form.Group className="mb-3" controlId="signupForm">
+      <Form.Group className="mb-2" controlId="signupUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control
           onChange={(e) => setEnteredUsername(e.target.value)}
@@ -30,6 +31,8 @@ function SignupPage() {
           placeholder="name@example.com"
           value={enteredUsername}
         />
+      </Form.Group>
+      <Form.Group className="mb-2" controlId="signupPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
@@ -37,6 +40,8 @@ function SignupPage() {
           value={enteredPassword}
           onChange={(e) => setEnteredPassword(e.target.value)}
         />
+      </Form.Group>
+      <Form.Group className="mb-2" controlId="signupRest">
         <Form.Label>Account Type</Form.Label>
 
         <Form.Select

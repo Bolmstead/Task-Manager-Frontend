@@ -2,9 +2,8 @@ import { useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import UserContext from "../UserContext.js";
 
-// Alert types:
-// "primary","secondary","success","error",
-// "warning","info","light","dark"
+// General alert. Displays errors (type: "error") and 
+// successful (type: "success") messages
 
 function AlertMessage({ alert }) {
   const { setAlert } = useContext(UserContext);

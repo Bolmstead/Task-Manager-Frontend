@@ -1,3 +1,4 @@
+/* General */
 .App {
   text-align: center;
 }
@@ -13,14 +14,20 @@
   color: white;
 }
 
-.pink {
-  color: pink;
+.soft-gray {
+  color: #575757;
 }
 
+/* Titles */
 .page-title {
   padding: 20px;
 }
 
+.tasks-page-title {
+  margin: 10px;
+}
+
+/* Forms */
 .form-label {
   font-size: 22px;
 }
@@ -33,33 +40,21 @@
   width: 400px;
 }
 
-.chat-box {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.chat-box-body {
-  max-height: 500px;
-  overflow: auto;
-}
-
-.chat-text {
-  font-size: 16px;
-}
-
-.chat-btn {
-  width: 100px
-}
-
 .account-text {
   font-size: 16px;
   text-decoration: none;
 }
 
-.tasks-page-title {
-  margin: 10px;
+/* Alerts */
+.alert-modal {
+  width: 100%;
 }
 
+.alert-icon {
+  font-size: 30px;
+}
+
+/* Task Card */
 .detailed-task-card {
   width: 100%;
 }
@@ -88,23 +83,21 @@
   font-size: 15px;
 }
 
-.soft-gray {
-  color: #575757;
+/* Chat Box */
+.chat-box {
+  width: 100%;
+  border-radius: 10px;
 }
 
-.alert-modal {
-  width: 100%
+.chat-box-body {
+  max-height: 500px;
+  overflow: auto;
 }
 
-.alert-icon {
-  font-size: 30px;
+.chat-text {
+  font-size: 16px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chat-btn {
+  width: 100px;
 }

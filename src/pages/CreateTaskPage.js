@@ -19,7 +19,7 @@ function CreateTaskPage() {
 
   useEffect(() => {
     async function grabAllClients() {
-      let apiResult = await TaxRiseAPI.getAllClients();
+      const apiResult = await TaxRiseAPI.getAllClients();
 
       if (apiResult.clients) {
         const tempClients = [];
@@ -38,6 +38,7 @@ function CreateTaskPage() {
     grabAllClients();
   }, []);
 
+  // Disable Create Task Button if form isn't complete
   useEffect(() => {
     if (
       title.length > 0 &&
@@ -53,7 +54,7 @@ function CreateTaskPage() {
   const createTask = async () => {
     try {
       setBtnLoading(true);
-      let assignedClientUsernames = [];
+      const assignedClientUsernames = [];
       for (let obj of selectedClients) {
         assignedClientUsernames.push(obj.value);
       }
@@ -64,7 +65,7 @@ function CreateTaskPage() {
         status: "To Do",
       };
 
-      let apiResult = await TaxRiseAPI.createTask(apiObject);
+      await TaxRiseAPI.createTask(apiObject);
       setBtnLoading(false);
       setTitle("");
       setDescription("");
@@ -72,7 +73,6 @@ function CreateTaskPage() {
       setAlert({ type: "success", message: "Task was created and assigned" });
     } catch (err) {
       setBtnLoading(false);
-      console.log(err);
 
       setAlert({ type: "error", message: err });
     }
@@ -87,7 +87,6 @@ function CreateTaskPage() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-
         <Form.Label>Description</Form.Label>
         <Form.Control
           as="textarea"
@@ -96,7 +95,6 @@ function CreateTaskPage() {
           onChange={(e) => setDescription(e.target.value)}
         />
         <Form.Label>Assign to:</Form.Label>
-
         <Select
           options={allClients}
           isMulti

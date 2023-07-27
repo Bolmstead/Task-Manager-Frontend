@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# TaxRise Client and Task Managment Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A User Interface that enables Administrators to assign tasks to Clients and for Clients to complete and update these Tasks.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Create Admin or Client accounts and securly access these accounts with JSON Web Tokens.
+- Admins can view all tasks and create/assign new tasks to Clients
+- Clients can view their assigned tasks and respond to their tasks by sending a message and updating the tasks's status.
+- Clients will soon be able to upload file attachments for the Client and Admin to view.
 
-### `npm start`
+## Tech
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This frontend web application uses a number of open source projects to work properly:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [ReactJS] - HTML enhanced for web apps!
+- [React Bootstrap] - UI boilerplate for modern web apps
+- [JSON Web Tokens] - A way to securely transmit information between parties
+- [UUID] - Tool to create unique ID's
 
-### `npm test`
+## How to Run the Project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This application requires [ReactJS](https://nodejs.org/) v18.2.0+ to run. To get a local copy up and running follow these steps:
 
-### `npm run build`
+### Clone Repos
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the frontend repo by enter the following in a CLI in your desired directory:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   git clone https://github.com/Bolmstead/taxrise-frontend.git
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Clone the backend repo to a separate directory by entering the following in a CLI:
 
-### `npm run eject`
+   git clone https://github.com/Bolmstead/taxrise-backend.git
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Library Installations
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Install the libraries in each frontend and backend directories
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```sh
+   npm install
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Create a MondoDB Cluster
 
-## Learn More
+4. Create a [MongoDB](https://www.mongodb.com/) account and create your own cluster.
+5. Create a MONGO_URI environment variable in your backend repository using your cluster's connection string as the value.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Create Other Environment Variables in Backend Repository
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+6. If working in a local environment, set your NODE_ENV environment variable to "development". If working in production, set it to "production".
+7. Set a JWT_SECRET environment variable to a secure key of your choice.
 
-### Code Splitting
+### Connect to Firebase
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. Create a [Firebase](https://firebase.google.com/) account and follow their provided steps in connecting with a React Application. In your frontend, set your FIREBASE_API_KEY, FIREBASE_MESSAGING_SENDER_ID, FIREBASE_APP_ID, and FIREBASE_MEASUREMENT_ID environment variables based on the information Firebase provides.
 
-### Analyzing the Bundle Size
+### Create Environment Variables in Frontend Repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+8. Set REACT_APP_ENV to either "development" or "production" depending on your environment.
+9. Set REACT_APP_BACKEND_PORT to a port of your choice.
 
-### Making a Progressive Web App
+### Start your project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+10. Run local servers in your frontend and backend repositories by running:
+   ```sh
+   npm start
+   ```
 
-### Advanced Configuration
+## Project Links
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+[Live Site](https://freebay.netlify.app/)
+[https://github.com/Bolmstead/taxrise-frontend](https://github.com/Bolmstead/taxrise-frontend)
+[https://github.com/Bolmstead/taxrise-backend](https://github.com/Bolmstead/taxrise-backend)
 
-### Deployment
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Berkley Olmstead - olms2074@gmail.com - [Linkedin](https://www.linkedin.com/in/berkleyolmstead/)
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[node.js]: http://nodejs.org
+[React Bootstrap]: https://react-bootstrap.netlify.app/
+[express]: http://expressjs.com
+[ReactJS]: https://react.dev/
+[JSON Web Tokens]: https://www.npmjs.com/package/jsonwebtoken
+[UUID]: https://www.npmjs.com/package/uuid

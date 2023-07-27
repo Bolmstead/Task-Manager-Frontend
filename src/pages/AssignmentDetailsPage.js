@@ -6,6 +6,9 @@ import UserContext from "../UserContext.js";
 import ChatBox from "../components/ChatBox.js";
 import TaskCard from "../components/TaskCard.js";
 
+
+
+
 function AssignmentDetailsPage() {
   const { loggedInUser } = useContext(UserContext);
   const params = useParams();
@@ -17,7 +20,7 @@ function AssignmentDetailsPage() {
   useEffect(() => {
     async function grabAssignmentDetails() {
       try {
-        let apiResult = await TaxRiseAPI.getAssignmentDetails(params.id);
+        const apiResult = await TaxRiseAPI.getAssignmentDetails(params.id);
 
         const { task, user, status } = apiResult;
         if (loggedInUser.isClient && user.username !== loggedInUser.username) {
@@ -32,9 +35,6 @@ function AssignmentDetailsPage() {
     grabAssignmentDetails();
   }, [triggerAssignmentUpdate]);
 
-  useEffect(() => {
-    console.log("assignment", assignment);
-  }, [assignment]);
 
   function updateAssignment() {
     setTriggerAssignmentUpdate(!triggerAssignmentUpdate);

@@ -1,5 +1,8 @@
 import Card from "react-bootstrap/Card";
 
+// Displays on Admin's all-tasks page, Client's my-tasks page,
+// and an task/assignment details page. 
+// clientUsername is an optional parameter.
 function TaskCard({ title, description, status, clientUsername }) {
   return (
     <Card className="task-card">

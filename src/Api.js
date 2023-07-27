@@ -5,28 +5,18 @@ const BASE_URL =
     ? process.env.REACT_APP_BACKEND_URL
     : `http://localhost:${process.env.REACT_APP_BACKEND_PORT}`;
 
-/** API Class.
- *
- * Static class tying together methods used to get/send to to the API. *
- *
- *
- *
- */
+/** API Class **/
 
 class TaxRiseAPI {
-  // the token for with the API will be stored here.
+  // the token for the API will be stored here.
   static token;
 
   static async request(endpoint, data = {}, method = "get") {
-    console.log("API Call:", endpoint, data, method);
-
     const url = `${BASE_URL}/${endpoint}`;
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     };
     const params = method === "get" ? data : {};
-
-
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
@@ -39,7 +29,6 @@ class TaxRiseAPI {
   }
 
   // Individual API routes
-
   static async login(data) {
     const res = await this.request(`auth/login`, data, "post");
     return res.token;
@@ -76,31 +65,18 @@ class TaxRiseAPI {
 
   static async getAssignmentDetails(assignmentId) {
     const url = `assignments/details/${assignmentId}`;
-
-
     const res = await this.request(url);
-
     return res;
   }
 
   static async editAssignment(assignmentId, data) {
     const url = `assignments/edit/${assignmentId}`;
-    console.log(
-      "🚀 ~ file: Api.js:79 ~ TaxRiseAPI ~ getTaskDetails ~ url:",
-      url
-    );
-
     const res = await this.request(url, data, "put");
-    console.log(
-      "🚀 ~ file: Api.js:79 ~ TaxRiseAPI ~ getTaskDetails ~ res:",
-      res
-    );
     return res;
   }
 
   static async createTask(data) {
     const res = await this.request(`tasks`, data, "post");
-
     return res;
   }
 }

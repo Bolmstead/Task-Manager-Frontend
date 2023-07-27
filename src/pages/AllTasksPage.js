@@ -6,6 +6,7 @@ import TaxRiseAPI from "../Api.js";
 import UserContext from "../UserContext.js";
 import TaskCard from "../components/TaskCard.js";
 
+// Only Admin can view. Displays all Assignments and the Task's details
 function AllTasksPage() {
   const { loggedInUser } = useContext(UserContext);
   const [assignmentComponents, setAssignmentComponents] = useState([]);
@@ -14,9 +15,9 @@ function AllTasksPage() {
   useEffect(() => {
     async function grabAllTasks() {
       try {
-        let apiResult = await TaxRiseAPI.getAllAssignments();
+        const apiResult = await TaxRiseAPI.getAllAssignments();
 
-        let tempAssignmentComponents = [];
+        const tempAssignmentComponents = [];
         if (apiResult.length > 0) {
           apiResult.map((assignment) => {
             const { task, _id, status, user } = assignment;
@@ -42,7 +43,6 @@ function AllTasksPage() {
         setAssignmentComponents(tempAssignmentComponents);
         setLoadingTasks(false);
       } catch (err) {
-        console.log("🚀 ~ file: AllTasksPage.js:45 ~ useEffect ~ err:", err);
         setLoadingTasks(false);
       }
     }

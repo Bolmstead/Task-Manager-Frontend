@@ -5,12 +5,9 @@ import { Link, Navigate } from "react-router-dom";
 import UserContext from "../UserContext.js";
 import TaskCard from "../components/TaskCard.js";
 
+// Only accessible by a client. Displays their assigned tasks
 function MyTasksPage() {
-  const { loggedInUser } = useContext(UserContext);
-  console.log(
-    "🚀 ~ file: MyTasksPage.js:10 ~ MyTasksPage ~ loggedInUser:",
-    loggedInUser
-  );
+  const { loggedInUser, setAlert } = useContext(UserContext);
   const [taskComponents, setTaskComponents] = useState([]);
   const [loadingTasks, setLoadingTasks] = useState(true);
 
@@ -18,19 +15,11 @@ function MyTasksPage() {
     try {
       async function createTaskComponents() {
         const { assignments } = loggedInUser;
-        console.log(
-          "🚀 ~ file: MyTasksPage.js:21 ~ createTaskComponents ~ assignments:",
-          assignments
-        );
-
         if (assignments.length < 1) {
-          console.log("assignments are less than 1");
           setLoadingTasks(false);
           return setTaskComponents(<div>No Tasks assigned yet</div>);
         }
-
         const tempTaskComponents = [];
-
         for (let assignment of assignments) {
           const { title, description } = assignment.task;
           tempTaskComponents.push(
@@ -44,23 +33,11 @@ function MyTasksPage() {
           );
         }
         setTaskComponents(tempTaskComponents);
-
-        // console.log(
-        //   "🚀 ~ file: MyTasksPage.js:25 ~ apiResult.map ~ title, description:",
-        //   title,
-        //   description
-        // );
-        // tempTaskComponents.push(
-        //   <Link to={`/task/${_id}`}>
-        //     <TaskCard title={title} description={description} />
-        //   </Link>
-        // );
-
         setLoadingTasks(false);
       }
       createTaskComponents();
     } catch (err) {
-      console.log("🚀 ~ file: MyTasksPage.js:45 ~ useEffect ~ err:", err);
+      setAlert({ message: "Error displaying Tasks", type: "error" });
     }
   }, []);
 
@@ -74,7 +51,6 @@ function MyTasksPage() {
         <div className="tasks-page-title">
           <h1>Your Assigned Tasks</h1>
         </div>
-
         {loadingTasks ? (
           <div className="spinner-container">
             <Spinner></Spinner>
