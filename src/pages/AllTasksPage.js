@@ -49,6 +49,10 @@ function AllTasksPage() {
     grabAllTasks();
   }, []);
 
+  if (!loggedInUser) {
+    return <Navigate to="/login" replace={true} />;
+  }
+
   if (loggedInUser.isClient) {
     return <Navigate to="/my-tasks" replace={true} />;
   }
