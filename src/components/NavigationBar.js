@@ -15,10 +15,10 @@ function NavigationBar() {
           <Navbar.Brand>Hi, {loggedInUser.username}!</Navbar.Brand>
           <Navbar.Text>
             {loggedInUser.isClient
-              ? "As a Client, you can view and address all of your assigned Tasks."
-              : "As an Admin, you can create and view all Tasks"}
+              ? "As a Client, you can view your assigned Tasks. To respond to a task, click on a task from the list."
+              : "As an Admin, you can create and view all Tasks. To see a Client's response, click on a task from the list."}
           </Navbar.Text>
-          <Navbar.Collapse className="justify-content-end">
+          <Nav className="justify-content-end">
             {loggedInUser.isClient ? (
               <Nav>
                 <Nav.Link>
@@ -45,7 +45,7 @@ function NavigationBar() {
                 <Nav.Link onClick={logout}>logout</Nav.Link>
               </Nav>
             )}
-          </Navbar.Collapse>
+          </Nav>
         </Container>
       ) : (
         <Container>
