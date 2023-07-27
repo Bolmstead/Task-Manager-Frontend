@@ -17,8 +17,9 @@ This frontend web application uses a number of open source projects to work prop
 - [React Bootstrap] - UI boilerplate for modern web apps
 - [JSON Web Tokens] - A way to securely transmit information between parties
 - [UUID] - Tool to create unique ID's
+- [Firebase] - Databse used to store files
 
-The Backend Technologies utilized are:
+The Backend technologies utilized are:
 
 - [Node.JS] - HTML enhanced for web apps!
 - [Express.JS] - UI boilerplate for modern web apps
@@ -36,11 +37,15 @@ This application requires [ReactJS](https://nodejs.org/) v18.2.0+ to run. To get
 
 1. Clone the frontend repo by enter the following in a CLI in your desired directory:
 
+   ```sh
    git clone https://github.com/Bolmstead/taxrise-frontend.git
+   ```
 
 2. Clone the backend repo to a separate directory by entering the following in a CLI:
 
+   ```sh
    git clone https://github.com/Bolmstead/taxrise-backend.git
+   ```
 
 ### Library Installations
 
@@ -96,3 +101,4 @@ Berkley Olmstead - olms2074@gmail.com - [Linkedin](https://www.linkedin.com/in/b
 [Bcrypt]: https://www.npmjs.com/package/bcrypt
 [JSON Schema]: https://www.npmjs.com/package/jsonschema
 [Mongoose]: https://www.npmjs.com/package/mongoose
+[Firebase]: https://firebase.google.com/
