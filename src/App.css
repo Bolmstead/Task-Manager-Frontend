@@ -25,8 +25,20 @@
   font-size: 22px;
 }
 
-.account-form {
-  min-width: 300px;
+.general-form {
+  width: 300px;
+}
+
+.create-task-form {
+  width: 400px;
+}
+
+.chat-text-bubble {
+  display: "flex";
+  justify-content: "end";
+}
+.chat-text {
+  font-size: 16px;
 }
 
 .account-text {
@@ -34,13 +46,12 @@
   text-decoration: none;
 }
 
-
-
-
-.link {
+.tasks-page-title {
+  margin: 10px;
 }
 
-.task-card {
+.detailed-task-card {
+  width: 100%;
 }
 
 .task-card-body {

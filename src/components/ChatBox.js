@@ -12,7 +12,12 @@ import { v4 as uuid } from "uuid";
 import TaxRiseAPI from "../Api";
 import UserContext from "../UserContext";
 
-export default function ChatBox({ responses, currentStatus, assignmentId }) {
+export default function ChatBox({
+  responses,
+  currentStatus,
+  assignmentId,
+  updateAssignment,
+}) {
   const usersCurrentStatus = currentStatus;
   const { loggedInUser, setAlert } = useContext(UserContext);
 
@@ -56,6 +61,7 @@ export default function ChatBox({ responses, currentStatus, assignmentId }) {
         });
         setStatus(apiResult.status);
         setUpdatingStatus(false);
+        updateAssignment();
       }
     } catch (error) {
       setSendingResponse(false);
@@ -96,8 +102,11 @@ export default function ChatBox({ responses, currentStatus, assignmentId }) {
                 {allResponses.map((response) => {
                   const key = uuid();
                   return (
-                    <div key={key}>
-                      <p className="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">
+                    <div
+                      key={key}
+                      style={{ display: "flex", justifyContent: "end" }}
+                    >
+                      <p className="small p-2 me-3 mb-1 text-white rounded-3 bg-primary chat-text">
                         {response}
                       </p>
                     </div>

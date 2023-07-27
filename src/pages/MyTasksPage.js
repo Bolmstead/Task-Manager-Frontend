@@ -37,6 +37,7 @@ function MyTasksPage() {
           const { title, description } = assignment.task;
           tempTaskComponents.push(
             <Link
+              key={assignment._id}
               to={`/assignment/${assignment._id}`}
               className="task-card-link"
             >

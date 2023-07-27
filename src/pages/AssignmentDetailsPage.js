@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { Card, Spinner } from "react-bootstrap";
+import { Container, Spinner, Stack } from "react-bootstrap";
 import { Navigate, useParams } from "react-router-dom";
 import TaxRiseAPI from "../Api.js";
 import UserContext from "../UserContext.js";
 import ChatBox from "../components/ChatBox.js";
+import TaskCard from "../components/TaskCard.js";
 
 function AssignmentDetailsPage() {
   const { loggedInUser } = useContext(UserContext);
@@ -11,6 +12,7 @@ function AssignmentDetailsPage() {
 
   const [assignment, setAssignment] = useState(null);
   const [loadingTask, setLoadingTask] = useState(true);
+  const [triggerAssignmentUpdate, setTriggerAssignmentUpdate] = useState(true);
 
   useEffect(() => {
     async function grabAssignmentDetails() {
@@ -28,39 +30,40 @@ function AssignmentDetailsPage() {
       }
     }
     grabAssignmentDetails();
-  }, []);
+  }, [triggerAssignmentUpdate]);
 
   useEffect(() => {
     console.log("assignment", assignment);
   }, [assignment]);
 
+  function updateAssignment() {
+    setTriggerAssignmentUpdate(!triggerAssignmentUpdate)
+  }
+
   return (
-    <div>
+    <Container>
       {loadingTask ? (
         <Spinner></Spinner>
       ) : (
-        <>
-          Task Details <br />
-          <Card style={{ width: "18rem" }}>
-            <Card.Body>
-              <Card.Title>{assignment.task.title}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                {assignment.task.description}
-              </Card.Subtitle>
-              <Card.Subtitle className="mb-2 text-muted">
-                Assigned to: {assignment.user.username}
-              </Card.Subtitle>
-            </Card.Body>
-          </Card>{" "}
-          <br />
+        <Stack gap={3} className="col-md-5 mx-auto">
+          <div className="tasks-page-title">
+            <h1>Task Details</h1>
+          </div>{" "}
+          <TaskCard
+            className="detailed-task-card"
+            title={assignment.task.title}
+            description={assignment.task.description}
+            clientUsername={assignment.user.username}
+            status={assignment.status}
+          />{" "}
           <ChatBox
             responses={assignment.responses}
             currentStatus={assignment.status}
             assignmentId={assignment._id}
+            updateAssignment={updateAssignment}
           />
-        </>
+        </Stack>
       )}{" "}
-      <br />
       {/* {loggedInUser.isClient && (
         <Form>
           <h1>Respond</h1>
@@ -73,7 +76,7 @@ function AssignmentDetailsPage() {
           </Form.Group>
         </Form>
       )} */}
-    </div>
+    </Container>
   );
 }
 

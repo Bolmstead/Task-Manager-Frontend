@@ -40,8 +40,8 @@ function CreateTaskPage() {
 
   useEffect(() => {
     if (
-      title.length > 3 &&
-      description.length > 3 &&
+      title.length > 0 &&
+      description.length > 0 &&
       selectedClients.length > 0
     ) {
       setIncompleteForm(false);
@@ -79,50 +79,47 @@ function CreateTaskPage() {
   };
 
   return (
-    <div>
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Task Title</Form.Label>
-          <Form.Control
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </Form.Group>
+    <Form className="create-task-form">
+      <h1 className="page-title">Create Task</h1>{" "}
+      <Form.Group className="mb-3" controlId="createTaskForm">
+        <Form.Label>Title</Form.Label>
+        <Form.Control
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={4}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <Form.Label>Assign to:</Form.Label>
+        <Form.Label>Description</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={4}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <Form.Label>Assign to:</Form.Label>
 
-          <Select
-            options={allClients}
-            isMulti
-            components={animatedComponents}
-            onChange={(selection) => setSelectedClients(selection)}
-            styles={{
-              option: (provided, state) => ({
-                ...provided,
-                color: "black",
-              }),
-            }}
-          />
-        </Form.Group>
-
-        <Button
-          variant="primary"
-          type="button"
-          disabled={incompleteForm || btnLoading}
-          onClick={!btnLoading ? createTask : null}
-        >
-          {btnLoading ? "Creating..." : "Create"}
-        </Button>
-      </Form>
-    </div>
+        <Select
+          options={allClients}
+          isMulti
+          components={animatedComponents}
+          onChange={(selection) => setSelectedClients(selection)}
+          styles={{
+            option: (provided, state) => ({
+              ...provided,
+              color: "black",
+            }),
+          }}
+        />
+      </Form.Group>
+      <Button
+        variant="primary"
+        type="button"
+        className="my-4 px-5"
+        disabled={incompleteForm || btnLoading}
+        onClick={!btnLoading ? createTask : null}
+      >
+        {btnLoading ? "Creating..." : "Create"}
+      </Button>
+    </Form>
   );
 }
 

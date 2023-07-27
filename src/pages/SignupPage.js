@@ -20,9 +20,9 @@ function SignupPage() {
   }
 
   return (
-    <Form className="account-form">
+    <Form className="general-form">
       <h1 className="page-title">Signup</h1>{" "}
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+      <Form.Group className="mb-3" controlId="signupForm">
         <Form.Label>Username</Form.Label>
         <Form.Control
           onChange={(e) => setEnteredUsername(e.target.value)}

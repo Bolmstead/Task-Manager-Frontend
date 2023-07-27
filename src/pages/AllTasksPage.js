@@ -24,7 +24,11 @@ function AllTasksPage() {
             const { title, description } = task;
 
             tempAssignmentComponents.push(
-              <Link to={`/assignment/${_id}`} className="task-card-link">
+              <Link
+                key={_id}
+                to={`/assignment/${_id}`}
+                className="task-card-link"
+              >
                 <TaskCard
                   title={title}
                   description={description}
@@ -57,7 +61,9 @@ function AllTasksPage() {
         </div>
 
         {loadingTasks ? (
-          <Spinner></Spinner>
+          <div className="spinner-container">
+            <Spinner></Spinner>
+          </div>
         ) : assignmentComponents.length > 0 ? (
           assignmentComponents
         ) : (
