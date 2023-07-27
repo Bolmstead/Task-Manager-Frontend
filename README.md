@@ -84,9 +84,9 @@ npm start
 
 ## Project Links
 
-[Live Site](https://freebay.netlify.app/)
-[https://github.com/Bolmstead/taxrise-frontend](https://github.com/Bolmstead/taxrise-frontend)
-[https://github.com/Bolmstead/taxrise-backend](https://github.com/Bolmstead/taxrise-backend)
+- [Live Site](https://freebay.netlify.app/)
+- [https://github.com/Bolmstead/taxrise-frontend](https://github.com/Bolmstead/taxrise-frontend)
+- [https://github.com/Bolmstead/taxrise-backend](https://github.com/Bolmstead/taxrise-backend)
 
 ## Contact
 
