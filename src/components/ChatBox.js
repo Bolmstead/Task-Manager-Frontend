@@ -43,30 +43,28 @@ export default function ChatBox({
     try {
       setUploadingFile(true);
 
-      console.log("🚀 ~ file: ChatBox.js:85 ~ uploadFile ~ file", file);
 
-      const uniqueId = uuid();
-      const documentLink = `${loggedInUser.username}/${assignmentId}/${uniqueId}`;
+      const documentLink = `${loggedInUser.username}/${assignmentId}/${file.name}`;
       const fileRef = ref(storage, documentLink);
-      console.log("🚀 ~ file: ChatBox.js:51 ~ uploadFile ~ fileRef:", fileRef);
-      console.log(
-        "🚀 ~ file: ChatBox.js:51 ~ uploadFile ~ documentLink:",
-        documentLink
-      );
+
       await uploadBytes(fileRef, file);
 
       let apiResult = await TaxRiseAPI.editAssignment(assignmentId, {
         fileUpload: documentLink,
       });
-      console.log("🚀 ~ file: ChatBox.js:61 ~ uploadFile ~ apiResult:", apiResult)
+ 
 
       setUploadingFile(false);
       setFile(null);
+      setAlert({
+        type: "success",
+        message: "Your file was uploaded",
+      });
+      updateAssignment(!updateAssignment)
     } catch (error) {
       setUploadingFile(false);
       setFile(null);
 
-      console.log("🚀 ~ file: ChatBox.js:22 ~ sendResponse ~ error:", error);
     }
   }
 
@@ -155,14 +153,14 @@ export default function ChatBox({
       {loggedInUser.isClient && (
         <MDBCardFooter className="text-muted d-flex  align-items-center p-3">
           <Form.Group className="d-flex flex-fill">
-            {/* <Form.Control disabled type="file" /> */}
-            <input
+            <Form.Control
               type="file"
               name="file"
               onChange={(e) => {
                 setFile(e.target.files[0]);
               }}
             />
+
             <Button
               variant="primary"
               type="button"

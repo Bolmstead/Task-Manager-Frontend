@@ -59,6 +59,10 @@ function MyTasksPage() {
         <div className="tasks-page-title">
           <h1>Your Assigned Tasks</h1>
         </div>
+        <span className="instructions">
+          As a Client, you can view your assigned Tasks. To respond to a task,
+          click on a task from the list.
+        </span>
         {loadingTasks ? (
           <div className="spinner-container">
             <Spinner></Spinner>

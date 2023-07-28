@@ -18,10 +18,26 @@
   color: #575757;
 }
 
-.appbar-link {
-  width: 100%;
+.file-link {
+  color: white;
   text-decoration: none;
+}
+
+.instructions {
+  font-size: 16px
+}
+
+.appbar-link {
+  width: 90px;
   color: #575757;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.attachment-icon {
+  font-size: 25px;
 }
 
 /* Titles */
@@ -30,7 +46,7 @@
 }
 
 .tasks-page-title {
-  margin: 10px;
+  margin-top: 10px;
 }
 
 /* Forms */

@@ -22,13 +22,12 @@ function App() {
   const [token, setToken] = useLocalStorage("token");
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [alert, setAlert] = useState(null);
-  const [infoLoaded, setInfoLoaded] = useState(null);
+  const [infoLoaded, setInfoLoaded] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
 
   useEffect(
     // Grab the userinfo with API call using token in local storage and save user to state
     function loadUserInfo() {
-      console.debug("App useEffect loadUserInfo", "token=", token);
       async function getLoggedInUser() {
         if (token) {
           try {
@@ -36,14 +35,17 @@ function App() {
             TaxRiseAPI.token = token;
             const currentUser = await TaxRiseAPI.getLoggedInUser(username);
             setLoggedInUser(currentUser);
+            setInfoLoaded(true);
+            setBtnLoading(false);
           } catch (err) {
             console.error("App loadUserInfo: problem loading", err);
             setLoggedInUser(null);
+            setInfoLoaded(true);
           }
+        } else {
+          setInfoLoaded(true);
         }
-        setInfoLoaded(true);
       }
-      setInfoLoaded(false);
       getLoggedInUser();
     },
     [token]
@@ -58,15 +60,14 @@ function App() {
         username: enteredUsername,
         password: enteredPassword,
       });
-      setBtnLoading(false);
       setToken(loginToken);
       localStorage.setItem("token", JSON.stringify(loginToken));
     } catch (error) {
-      setBtnLoading(false);
       setAlert({
         type: "error",
         message: error.message || "Error Logging in",
       });
+      setBtnLoading(false);
     }
   }
 
@@ -81,7 +82,6 @@ function App() {
 
       setAlert(null);
       const token = await TaxRiseAPI.signup({ username, password, isClient });
-      setBtnLoading(false);
 
       setToken(token);
     } catch (error) {
@@ -98,6 +98,17 @@ function App() {
   function logout() {
     setLoggedInUser(null);
     setToken(null);
+  }
+
+  if (!infoLoaded) {
+    <div className="App">
+      <NavigationBar />
+      <header className="App-header">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </header>
+    </div>;
   }
 
   return (

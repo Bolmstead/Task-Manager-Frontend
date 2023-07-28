@@ -63,6 +63,10 @@ function AllTasksPage() {
         <div className="tasks-page-title">
           <h1>All Assigned Tasks</h1>
         </div>
+        <span className="instructions ">
+          As an Admin, you can create and view all Tasks. To view a Client's
+          response, click on a task from the list.
+        </span>
 
         {loadingTasks ? (
           <div className="spinner-container">
