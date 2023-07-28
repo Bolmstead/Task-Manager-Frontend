@@ -1,15 +1,17 @@
 // import { storage } from "firebase";
+import { ref, uploadBytes } from "firebase/storage";
 import {
   MDBCard,
   MDBCardBody,
   MDBCardFooter,
   MDBCardHeader,
 } from "mdb-react-ui-kit";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import TaxRiseAPI from "../Api";
 import UserContext from "../UserContext";
+import { storage } from "../utils/firebase";
 
 // This was created from a template of an already created Chat Box UI:
 // https://github.com/mdbootstrap/react-chat
@@ -36,29 +38,37 @@ export default function ChatBox({
   // function handleFile(event) {
   //   setFile(event.target.files[0]);
   // }
-  // async function uploadFile() {
-  //   if (file == null) return;
-  //   console.log("🚀 ~ file: ChatBox.js:85 ~ uploadFile ~ file", file);
+  async function uploadFile() {
+    if (file == null) return;
+    try {
+      setUploadingFile(true);
 
-  //   const fileRef = ref(storage, `${loggedInUser.username}/${uuid()}`);
-  //   uploadBytes(fileRef, file).then(() => {
-  //     alert("Image Uploaded");
-  //   });
-  //   try {
-  //     setUploadingFile(true);
-  //     let fileURL;
+      console.log("🚀 ~ file: ChatBox.js:85 ~ uploadFile ~ file", file);
 
-  //     let apiResult = await TaxRiseAPI.editAssignment(assignmentId, {
-  //       uploadedFile: fileURL,
-  //     });
+      const uniqueId = uuid();
+      const documentLink = `${loggedInUser.username}/${assignmentId}/${uniqueId}`;
+      const fileRef = ref(storage, documentLink);
+      console.log("🚀 ~ file: ChatBox.js:51 ~ uploadFile ~ fileRef:", fileRef);
+      console.log(
+        "🚀 ~ file: ChatBox.js:51 ~ uploadFile ~ documentLink:",
+        documentLink
+      );
+      await uploadBytes(fileRef, file);
 
-  //     setUploadingFile(false);
-  //   } catch (error) {
-  //     setUploadingFile(false);
+      let apiResult = await TaxRiseAPI.editAssignment(assignmentId, {
+        fileUpload: documentLink,
+      });
+      console.log("🚀 ~ file: ChatBox.js:61 ~ uploadFile ~ apiResult:", apiResult)
 
-  //     console.log("🚀 ~ file: ChatBox.js:22 ~ sendResponse ~ error:", error);
-  //   }
-  // }
+      setUploadingFile(false);
+      setFile(null);
+    } catch (error) {
+      setUploadingFile(false);
+      setFile(null);
+
+      console.log("🚀 ~ file: ChatBox.js:22 ~ sendResponse ~ error:", error);
+    }
+  }
 
   async function editAssignment(field) {
     try {
@@ -68,7 +78,6 @@ export default function ChatBox({
         const apiResult = await TaxRiseAPI.editAssignment(assignmentId, {
           response,
         });
-
 
         setAllResponses(apiResult.responses);
         setSendingResponse(false);
@@ -90,10 +99,8 @@ export default function ChatBox({
     } catch (error) {
       setSendingResponse(false);
       setUpdatingStatus(false);
-
     }
   }
-
 
   return (
     <MDBCard id="chat2" className="chat-box">
@@ -148,20 +155,20 @@ export default function ChatBox({
       {loggedInUser.isClient && (
         <MDBCardFooter className="text-muted d-flex  align-items-center p-3">
           <Form.Group className="d-flex flex-fill">
-            <Form.Control disabled type="file" />
-            {/* <input
+            {/* <Form.Control disabled type="file" /> */}
+            <input
               type="file"
               name="file"
-              onChange={(event) => {
-                setFile(event.target.files[0]);
+              onChange={(e) => {
+                setFile(e.target.files[0]);
               }}
-            /> */}
+            />
             <Button
               variant="primary"
               type="button"
               className="chat-btn"
-              disabled={true}
-              // onClick={!uploadingFile ? uploadFile : null}
+              disabled={!file || uploadingFile}
+              onClick={!uploadingFile ? uploadFile : null}
             >
               {uploadingFile ? "Uploading" : "Upload"}
             </Button>

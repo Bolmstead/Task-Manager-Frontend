@@ -26,6 +26,11 @@ function AssignmentDetailsPage() {
         if (loggedInUser.isClient && user.username !== loggedInUser.username) {
           return <Navigate to="/" replace={true} />;
         }
+
+
+        for (let fileLink of apiResult.fileUploads) {
+          
+        }
         setAssignment(apiResult);
         setLoadingTask(false);
       } catch (err) {

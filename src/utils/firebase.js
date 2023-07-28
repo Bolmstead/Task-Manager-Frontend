@@ -7,13 +7,13 @@ import { getStorage } from "firebase/storage";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: "taxrise-berkley.firebaseapp.com",
-  projectId: "taxrise-berkley",
-  storageBucket: "taxrise-berkley.appspot.com",
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyBx8A2RSRi6KDoeQF3Q_LydSILXSCqAXWE",
+  authDomain: "taxrise-6cf9f.firebaseapp.com",
+  projectId: "taxrise-6cf9f",
+  storageBucket: "taxrise-6cf9f.appspot.com",
+  messagingSenderId: "623221794931",
+  appId: "1:623221794931:web:53f73b999e38a8fec5e206",
+  measurementId: "G-C6CS85JSN8",
 };
 
 // Initialize Firebase
