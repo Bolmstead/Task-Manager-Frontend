@@ -1,5 +1,9 @@
 import axios from "axios";
 
+console.log(
+  "process.env.REACT_APP_BACKEND_URL",
+  process.env.REACT_APP_BACKEND_URL
+);
 const BASE_URL =
   process.env.REACT_APP_ENV === "production"
     ? process.env.REACT_APP_BACKEND_URL
