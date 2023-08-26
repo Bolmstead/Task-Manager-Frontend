@@ -1,4 +1,4 @@
-# TaxRise Client and Task Managment Application
+# Task Manager Application
 
 A User Interface that enables Administrators to assign tasks to Clients and for the Clients to complete and update these Tasks.
 
@@ -38,13 +38,13 @@ This application requires [ReactJS](https://nodejs.org/) v18.2.0+ to run. To get
 1. Clone the frontend repo by enter the following in a CLI in your desired directory:
 
    ```sh
-   git clone https://github.com/Bolmstead/taxrise-frontend.git
+   git clone https://github.com/Bolmstead/Task-Manager-Frontend.git
    ```
 
 2. Clone the backend repo to a separate directory by entering the following in a CLI:
 
    ```sh
-   git clone https://github.com/Bolmstead/taxrise-backend.git
+   git clone https://github.com/Bolmstead/Task-Manager-Backend.git
    ```
 
 ### Library Installations
@@ -85,8 +85,8 @@ npm start
 ## Project Links
 
 - [Live Site](https://freebay.netlify.app/)
-- [https://github.com/Bolmstead/taxrise-frontend](https://github.com/Bolmstead/taxrise-frontend)
-- [https://github.com/Bolmstead/taxrise-backend](https://github.com/Bolmstead/taxrise-backend)
+- [https://github.com/Bolmstead/Task-Manager-Frontend](https://github.com/Bolmstead/Task-Manager-Frontend)
+- [https://github.com/Bolmstead/Task-Manager-Backend](https://github.com/Bolmstead/Task-Manager-Backend)
 
 ## Contact
 

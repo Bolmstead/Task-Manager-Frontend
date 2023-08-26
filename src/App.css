@@ -23,8 +23,13 @@
   text-decoration: none;
 }
 
+.site-description {
+  margin: 10px;
+  font-size: 16px;
+}
+
 .instructions {
-  font-size: 16px
+  font-size: 16px;
 }
 
 .appbar-link {
@@ -49,7 +54,17 @@
   margin-top: 10px;
 }
 
+.site-title {
+  margin-top: 20px;
+  font-size: 30px;
+}
+
 /* Forms */
+.form-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .form-label {
   font-size: 22px;
 }
