@@ -24,7 +24,7 @@ function SignupPage() {
   return (
     <Stack gap={3} className="col-md-5 mx-auto">
       <div className="site-title">
-        <h1 style={{ fontSize: "50px" }}>Task Manager</h1>
+        <img style={{ border: "5px grey solid" }} src="logo.jpg" />
       </div>
       <span className="site-description">
         This Full-Stack Web Application enables Administrators to assign tasks

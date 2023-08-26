@@ -1,10 +1,9 @@
 import { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Stack from "react-bootstrap/Stack";
 import { Link, Navigate } from "react-router-dom";
 import UserContext from "../UserContext.js";
-import Stack from "react-bootstrap/Stack";
-
 
 function LoginPage() {
   const { login, loggedInUser, btnLoading } = useContext(UserContext);
@@ -22,7 +21,7 @@ function LoginPage() {
   return (
     <Stack gap={3} className="col-md-5 mx-auto">
       <div className="site-title">
-        <h1 style={{ fontSize: "50px" }}>Task Manager</h1>
+        <img style={{ border: "5px grey solid" }} src="logo.jpg" />
       </div>
       <span className="site-description">
         This Full-Stack Web Application enables Administrators to assign tasks
